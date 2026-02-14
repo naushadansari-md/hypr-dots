@@ -35,14 +35,12 @@
                monospace;
 
   font-weight: bold;
-  font-size: 14px;
-
+  font-size: 12px;
   color: @on_surface;
   background: transparent;
   border: none;
   border-radius: 12px;
-
-  min-height: 30px;
+  min-height: 24px;
 }
 
 window#waybar {
@@ -81,8 +79,8 @@ window#waybar {
 #pulseaudio,
 #custom-launcher,
 #custom-notificationmode{
-  min-height: 22px;
-  padding: 4px 12px;
+  min-height: 18px;
+  padding: 2px 10px;
   margin: 0 4px;
   border-radius: 12px;
   transition: 150ms ease;

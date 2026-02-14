@@ -6,7 +6,6 @@
 #workspaces {
   padding: 5px 8px 5px 8px;
   border-radius: 12px;
-  
   background: radial-gradient(circle at 50% 250%,
             alpha(shade(@surface, 0.85), 0.9),
             alpha(@surface_dim, 0.9)) padding-box,
