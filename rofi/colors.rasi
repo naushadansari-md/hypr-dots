@@ -1,0 +1,12 @@
+* {
+    background: #0e1514;
+    foreground: #dde4e2;
+    primary:    #81d5cc;
+    secondary:  #b0ccc8;
+    outline:    #899391;
+    error:      #ffb4ab;
+
+    color1:  #81d5cc;
+    color2:  #b0ccc8;
+    color11: #81d5cc;
+}

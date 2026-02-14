@@ -1,0 +1,143 @@
+/* ------------------------------
+   IMPORTS
+--------------------------------*/
+@import "/home/saad/.config/waybar/colors.css";
+@import "/home/saad/.config/waybar/style/clock.css";
+@import "/home/saad/.config/waybar/style/hardware.css";
+@import "/home/saad/.config/waybar/style/launcher.css";
+@import "/home/saad/.config/waybar/style/pulseaudio.css";
+@import "/home/saad/.config/waybar/style/tray.css";
+@import "/home/saad/.config/waybar/style/workspaces.css";
+@import "/home/saad/.config/waybar/style/power.css";
+@import "/home/saad/.config/waybar/style/backlight.css";
+@import "/home/saad/.config/waybar/style/notificationmode.css";
+
+/* ------------------------------
+   GLOBAL RESET
+--------------------------------*/
+* {
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+}
+
+/* ------------------------------
+   WAYBAR BASE
+--------------------------------*/
+#waybar {
+  font-family: Terminess Nerd Font, monospace;
+  font-weight: bold;
+  font-size: 14px;
+  color: @on_surface;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  min-height: 30px;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+/* ------------------------------
+   GROUP CONTAINERS
+--------------------------------*/
+.modules-left,
+.modules-center,
+.modules-right {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.modules-left   { margin-left: 8px; }
+.modules-center { margin: 0 8px; }
+.modules-right  { margin-right: 8px; }
+
+/* ------------------------------
+   BASE GLASS PILL STYLE
+   (Workspaces intentionally excluded)
+--------------------------------*/
+#clock,
+#cpu,
+#memory,
+#temperature,
+#network,
+#backlight,
+#battery,
+#tray,
+#pulseaudio,
+#custom-launcher,
+#custom-power,
+#custom-notificationmode,
+#keyboard-state {
+  padding: 4px 12px;
+  margin: 0 4px;
+  border-radius: 12px;
+  transition: 150ms ease;
+
+  background: radial-gradient(circle at 50% 250%,
+            alpha(shade(@surface, 0.85), 0.9),
+            alpha(@surface_dim, 0.9)) padding-box,
+        linear-gradient(@primary, @on_primary) border-box;
+
+  border: 1px solid transparent;
+  opacity: 0.85;
+
+  box-shadow: inset 1px 2px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* ------------------------------
+   HOVER (Premium Glass Effect)
+--------------------------------*/
+#clock:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#network:hover,
+#backlight:hover,
+#battery:hover,
+#tray:hover,
+#pulseaudio:hover,
+#custom-launcher:hover,
+#custom-power:hover,
+#custom-notificationmode:hover,
+#keyboard-state:hover {
+  background: radial-gradient(circle at 50% 250%,
+            alpha(shade(@surface, 0.85), 0.96),
+            alpha(@surface_dim, 0.96)) padding-box,
+        linear-gradient(@primary, @on_primary) border-box;
+
+  opacity: 1;
+
+  box-shadow: 0 0 6px alpha(@primary, 0.25),
+              inset 1px 2px 2px rgba(255, 255, 255, 0.25);
+}
+
+/* ------------------------------
+   TOOLTIP
+--------------------------------*/
+tooltip {
+  padding: 10px;
+  border-radius: 12px;
+
+  background: radial-gradient(circle at 50% 250%,
+              @surface,
+              @surface_dim) padding-box,
+          linear-gradient(@primary, @on_primary) border-box;
+
+  border: 1px solid transparent;
+  opacity: 0.95;
+}
+
+tooltip label {
+  font-weight: bold;
+  color: @on_surface;
+}
+
+/* ------------------------------
+   TRAY INTERNAL SPACING
+--------------------------------*/
+#tray > widget {
+  margin: 0 3px;
+}

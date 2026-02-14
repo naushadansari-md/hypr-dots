@@ -1,0 +1,50 @@
+[
+  {
+    "layer": "top",
+    "output": ["DP-1", "DP-2", "eDP-1"],
+    "position": "top",
+    "margin-top": 5,
+    "margin-left": 10,
+    "margin-right": 10,
+    "margin-bottom": 0,
+
+    "modules-left": [
+      "custom/launcher",
+      "group/hardware",
+     
+    ],
+
+    "modules-center": [
+      "hyprland/workspaces"
+    ],
+
+    "modules-right": [
+      "clock",
+      "custom/space",
+      "custom/notificationmode",
+      "custom/space",
+      "pulseaudio",
+      "custom/space",
+      "group/trayicons",
+      "custom/space",
+      "group/power"
+    ],
+
+    "include": [
+      "/home/saad/.config/waybar/modules/clock.json",
+      "/home/saad/.config/waybar/modules/hardware.json",
+      "/home/saad/.config/waybar/modules/launcher.json",
+      "/home/saad/.config/waybar/modules/pulseaudio.json",
+      "/home/saad/.config/waybar/modules/tray.json",
+      "/home/saad/.config/waybar/modules/workspaces.json",
+      "/home/saad/.config/waybar/modules/power.json",
+      "/home/saad/.config/waybar/modules/backlight.json",
+      "/home/saad/.config/waybar/modules/notificationmode.json",
+    ],
+
+    "custom/space": {
+      "format": " ",
+      "tooltip": false
+    }
+  }
+]

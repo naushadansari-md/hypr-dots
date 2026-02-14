@@ -1,0 +1,62 @@
+/* ------------------------------
+   HYPRLAND WORKSPACES
+--------------------------------*/
+
+/* Container */
+#workspaces {
+  padding: 2px 12px;
+  margin: 0 4px;
+  border-radius: 12px;
+  transition: 150ms ease;
+
+  background: radial-gradient(circle at 50% 250%,
+            alpha(shade(@surface, 0.85), 0.9),
+            alpha(@surface_dim, 0.9)) padding-box,
+        linear-gradient(@primary, @on_primary) border-box;
+
+  border: 1px solid transparent;
+  opacity: 0.85;
+  box-shadow: inset 1px 2px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Buttons */
+#workspaces button {
+  padding: 0 10px;
+  margin: 0 4px;
+  color: @on_surface;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  opacity: 0.6;
+  transition: 150ms ease, transform 120ms ease;
+}
+
+/* Hover */
+#workspaces button:hover {
+  background: radial-gradient(circle at 50% 250%,
+            alpha(shade(@surface, 0.85), 0.95),
+            alpha(@surface_dim, 0.95)) padding-box,
+        linear-gradient(@secondary, @on_secondary) border-box;
+
+  box-shadow: 0 0 4px alpha(@secondary, 0.25),
+              inset 1px 2px 2px rgba(255, 255, 255, 0.25);
+  opacity: 1;
+
+}
+
+/* Active */
+#workspaces button.active {
+  background: alpha(@primary, 0.25);
+
+  box-shadow: 0 0 6px alpha(@primary, 0.35),
+              inset 1px 2px 2px rgba(255, 255, 255, 0.5),
+              inset 0 1px 1px rgba(255, 255, 255, 0.7);
+   opacity: 1;           
+}
+
+/* Urgent */
+#workspaces button.urgent {
+  background: alpha(@error, 0.25);
+  box-shadow: 0 0 6px alpha(@error, 0.3);
+  opacity: 1;
+}

@@ -1,0 +1,7 @@
+#custom-notificationmode {
+  color: @on_surface;
+}
+
+#custom-notificationmode.dnd {
+  color: alpha(@on_surface, 0.5);
+}

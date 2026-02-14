@@ -1,0 +1,51 @@
+{
+  "group/power": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "not-power",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/power",
+      "custom/space",
+      "custom/lock",
+      "custom/space",
+      "custom/exit",
+      "custom/space",
+      "custom/reboot"
+    ]
+  },
+
+  "custom/power": {
+    "format": "",
+    "tooltip-format": "Shutdown",
+    "on-click": "bash ~/.config/waybar/scripts/confirm.sh \"Shutdown Machine?\" \"shutdown -h now\"",
+    "menu": "on-click-right",
+    "menu-file": "~/.config/waybar/menus/power.xml",
+    "menu-actions": {
+      "shutdown": "bash ~/.config/waybar/scripts/confirm.sh \"Shutdown Machine?\" \"shutdown -h now\"",
+      "reboot": "bash ~/.config/waybar/scripts/confirm.sh \"Reboot Machine?\" \"reboot\"",
+      "exit": "hyprland dispatch exit",
+      "lock": "bash ~/.config/waybar/scripts/confirm.sh \"Lock Screen?\" \"hyprlock\""
+    }
+  },
+
+  "custom/exit": {
+    "format": " 󰗼 ",
+    "tooltip-format": "Exit",
+    "on-click": "hyprland dispatch exit"
+  },
+
+  "custom/lock": {
+    "format": " 󰍁 ",
+    "tooltip-format": "Lock",
+    "on-click": "bash ~/.config/waybar/scripts/confirm.sh \"Lock Screen?\" \"hyprlock\""
+  },
+
+  "custom/reboot": {
+    "format": " 󰜉 ",
+    "tooltip-format": "Reboot",
+    "on-click": "bash ~/.config/waybar/scripts/confirm.sh \"Reboot Machine?\" \"reboot\""
+  }
+}

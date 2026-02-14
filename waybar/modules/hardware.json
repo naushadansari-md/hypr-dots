@@ -1,0 +1,41 @@
+{
+  "cpu": {
+    "interval": 3,
+    "format": " {usage:2}% ",
+    "on-click": "kitty -e htop"
+  },
+  "memory": {
+    "interval": 3,
+    "format": "  {}% ",
+    "on-click": "kitty -e htop"
+  },
+  "temperature": {
+    "thermal-zone": 2,
+    "hwmon-path": [
+      "/sys/class/hwmon/hwmon2/temp1_input",
+      "/sys/class/thermal/thermal_zone0/temp"
+    ],
+    "critical-threshold": 70,
+    "format-critical": " {temperatureC}°C",
+    "format": " {temperatureC}°C",
+    "on-click": "kitty -e htop"
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "rotate": 0,
+    "format": "{icon} {percent}%",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "on-scroll-up": "brightnessctl set 1%+",
+    "on-scroll-down": "brightnessctl set 1%-",
+    "min-length": 6
+  },
+  "group/hardware": {
+    "orientation": "horizontal",
+    "modules": [
+      "cpu",
+      "memory",
+      "temperature",
+      "backlight"
+    ]
+  }
+}

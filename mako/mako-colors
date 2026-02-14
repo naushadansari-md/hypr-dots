@@ -1,0 +1,15 @@
+# Material You colors
+
+background-color=#003733
+text-color=#afc9e7
+border-color=#2f4962
+
+[mode=do-not-disturb]
+invisible=1
+on-notify=none
+
+[mode=silent]
+on-notify=none
+
+[urgency=high]
+border-color=#93000a

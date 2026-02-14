@@ -1,0 +1,10 @@
+#pulseaudio {
+  padding: 0px 5px 0px 15px;
+  min-width: 20px;
+  color: @on_surface;
+  transition: 150ms ease;
+}
+
+#pulseaudio.muted {
+  color: @error;
+}

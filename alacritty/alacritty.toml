@@ -1,0 +1,15 @@
+terminal.shell.program = "/usr/bin/zsh"
+
+general.import = [
+  "~/.config/alacritty/colors.toml"
+]
+
+[window]
+padding = { x = 32, y = 32 }
+dynamic_padding = true
+opacity = 0.98
+decorations = "None"
+
+[font]
+size = 10.5
+normal.family = "JetBrainsMono Nerd Font"

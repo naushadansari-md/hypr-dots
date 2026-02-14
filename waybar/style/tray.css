@@ -1,0 +1,13 @@
+#tray {
+  padding: 0 6px;
+  color: @on_surface;
+}
+
+#tray > .passive {
+  opacity: 0.6;
+}
+
+#tray > .needs-attention {
+  background-color: alpha(@error, 0.25);
+  border-radius: 8px;
+}

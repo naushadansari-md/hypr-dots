@@ -1,0 +1,53 @@
+/* Power group: surface pill + primary border, semantic text colors */
+
+#custom-power,
+#custom-lock,
+#custom-exit,
+#custom-reboot {
+  padding: 0 6px;
+  border-radius: 10px;
+  transition: 150ms ease;
+
+  /* surface-based pill */
+  background: radial-gradient(circle at 50% 250%,
+            alpha(shade(@surface, 0.85), 0.90),
+            alpha(@surface_dim, 0.90)) padding-box,
+
+        /* accent border */
+        linear-gradient(@primary, @on_primary) border-box;
+
+  box-shadow: inset 1px 2px 2px rgba(255, 255, 255, 0.2);
+  border: 1px solid transparent;
+  opacity: 0.85;
+
+  /* default icon/text color for these buttons */
+  color: @on_surface;
+}
+
+/* Make power stand out (destructive/action) */
+#custom-power {
+  color: @on_surface;
+}
+
+/* Hover: keep the same layered style, just boost intensity */
+#custom-power:hover,
+#custom-lock:hover,
+#custom-exit:hover,
+#custom-reboot:hover {
+  background: radial-gradient(circle at 50% 250%,
+            alpha(shade(@surface, 0.85), 0.96),
+            alpha(@surface_dim, 0.96)) padding-box,
+        linear-gradient(@primary, @on_primary) border-box;
+  opacity: 1;
+}
+
+/* Optional: pressed/click feedback */
+#custom-power:active,
+#custom-lock:active,
+#custom-exit:active,
+#custom-reboot:active {
+  background: radial-gradient(circle at 50% 250%,
+            alpha(shade(@surface, 0.80), 0.98),
+            alpha(@surface_dim, 0.98)) padding-box,
+        linear-gradient(@primary, @on_primary) border-box;
+}
