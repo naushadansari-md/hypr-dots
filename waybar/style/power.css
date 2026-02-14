@@ -1,53 +1,63 @@
-/* Power group: surface pill + primary border, semantic text colors */
+/* ------------------------------
+   POWER GROUP
+--------------------------------*/
 
 #custom-power,
 #custom-lock,
 #custom-exit,
 #custom-reboot {
-  padding: 0 6px;
-  border-radius: 10px;
+
+  min-height: 22px;
+  padding: 4px 12px;
+  margin: 0 4px;
+  border-radius: 12px;
   transition: 150ms ease;
 
-  /* surface-based pill */
   background: radial-gradient(circle at 50% 250%,
             alpha(shade(@surface, 0.85), 0.90),
             alpha(@surface_dim, 0.90)) padding-box,
-
-        /* accent border */
         linear-gradient(@primary, @on_primary) border-box;
 
-  box-shadow: inset 1px 2px 2px rgba(255, 255, 255, 0.2);
   border: 1px solid transparent;
-  opacity: 0.85;
 
-  /* default icon/text color for these buttons */
+  box-shadow:
+    inset 1px 2px 2px rgba(255, 255, 255, 0.20),
+    inset 0 0 0 1px rgba(255,255,255,0.06);
+
+  opacity: 0.85;
   color: @on_surface;
 }
 
-/* Make power stand out (destructive/action) */
+/* Make power icon a bit clearer */
 #custom-power {
   color: @on_surface;
+  padding: 4px 18px;
 }
 
-/* Hover: keep the same layered style, just boost intensity */
+/* Hover */
 #custom-power:hover,
 #custom-lock:hover,
 #custom-exit:hover,
 #custom-reboot:hover {
+
+  opacity: 1;
+
   background: radial-gradient(circle at 50% 250%,
             alpha(shade(@surface, 0.85), 0.96),
             alpha(@surface_dim, 0.96)) padding-box,
         linear-gradient(@primary, @on_primary) border-box;
-  opacity: 1;
+
+  box-shadow:
+      0 0 6px alpha(@primary, 0.25),
+      inset 1px 2px 2px rgba(255, 255, 255, 0.25),
+      inset 0 0 0 1px rgba(255,255,255,0.08);
 }
 
-/* Optional: pressed/click feedback */
+/* Press */
 #custom-power:active,
 #custom-lock:active,
 #custom-exit:active,
 #custom-reboot:active {
-  background: radial-gradient(circle at 50% 250%,
-            alpha(shade(@surface, 0.80), 0.98),
-            alpha(@surface_dim, 0.98)) padding-box,
-        linear-gradient(@primary, @on_primary) border-box;
+  box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.25);
 }
