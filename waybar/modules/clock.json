@@ -6,7 +6,7 @@
     "tooltip-format": "Time",
   },
   "clock": {
-    "format": " 󰥔  {:%I:%M %p}",
+    "format": "󰥔  {:%I:%M %p}",
     "format-alt": "   {:%b %d   󰥔  %I:%M %p}",
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {

@@ -3,6 +3,6 @@
   "custom/launcher": {
     "tooltip-format": "Application launcher",
     "on-click": "killall rofi || rofi -show drun",
-    "format": "  ",
+    "format": " ",
   },
 }

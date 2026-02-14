@@ -1,5 +1,6 @@
 #custom-notificationmode {
   color: @on_surface;
+  min-width: 16px;
 }
 
 #custom-notificationmode.dnd {

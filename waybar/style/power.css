@@ -31,7 +31,7 @@
 /* Make power icon a bit clearer */
 #custom-power {
   color: @on_surface;
-  padding: 4px 18px;
+  
 }
 
 /* Hover */

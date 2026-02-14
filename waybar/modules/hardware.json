@@ -1,12 +1,12 @@
 {
   "cpu": {
     "interval": 3,
-    "format": " {usage:2}% ",
+    "format": " {usage:2}%",
     "on-click": "kitty -e htop"
   },
   "memory": {
     "interval": 3,
-    "format": "  {}% ",
+    "format": "  {}%",
     "on-click": "kitty -e htop"
   },
   "temperature": {
