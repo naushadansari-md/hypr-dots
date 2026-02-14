@@ -8,7 +8,6 @@
     },
     "modules": [
       "custom/power",
-      "custom/space",
       "custom/lock",
       "custom/space",
       "custom/exit",

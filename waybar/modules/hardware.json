@@ -33,8 +33,11 @@
     "orientation": "horizontal",
     "modules": [
       "cpu",
+      "custom/space",
       "memory",
+      "custom/space",
       "temperature",
+      "custom/space",
       "backlight"
     ]
   }
