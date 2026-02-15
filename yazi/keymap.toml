@@ -1,0 +1,4 @@
+[[manager.prepend_keymap]]
+on = "T"
+run = "shell 'alacritty --working-directory \"$PWD\"' --confirm"
+desc = "Open terminal here"
