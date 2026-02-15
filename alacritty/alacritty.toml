@@ -1,8 +1,13 @@
-terminal.shell.program = "/usr/bin/zsh"
-
-general.import = [
+[general]
+import = [
   "~/.config/alacritty/colors.toml"
 ]
+
+[terminal]
+shell = { program = "/usr/bin/zsh" }
+
+[env]
+TERM = "xterm-256color"
 
 [window]
 padding = { x = 32, y = 32 }
@@ -12,4 +17,6 @@ decorations = "None"
 
 [font]
 size = 10.5
-normal.family = "JetBrainsMono Nerd Font"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"

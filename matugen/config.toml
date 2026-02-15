@@ -56,4 +56,5 @@ post_hook = 'pkill -USR2 btop'
 
 [templates.yazi]
 input_path = '~/.config/matugen/templates/yazi-theme.toml'
-output_path = '~/.config/yazi/theme.tom'
+output_path = '~/.config/yazi/theme.toml'
+
