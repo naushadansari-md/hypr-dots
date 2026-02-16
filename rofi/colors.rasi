@@ -1,12 +1,12 @@
 * {
-    background: #0e1514;
-    foreground: #dde4e2;
-    primary:    #81d5cc;
-    secondary:  #b0ccc8;
-    outline:    #899391;
+    background: #18120b;
+    foreground: #ede0d4;
+    primary:    #f3bd6e;
+    secondary:  #ddc2a1;
+    outline:    #9b8f80;
     error:      #ffb4ab;
 
-    color1:  #81d5cc;
-    color2:  #b0ccc8;
-    color11: #81d5cc;
+    color1:  #f3bd6e;
+    color2:  #ddc2a1;
+    color11: #f3bd6e;
 }

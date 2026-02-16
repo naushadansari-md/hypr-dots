@@ -1,6 +1,11 @@
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+# ---------------------------
+# Manager
+# ---------------------------
 [mgr]
 ratio          = [ 1, 3, 4 ]
-sort_by        = "natural"
+sort_by        = "alphabetical"
 sort_sensitive = false
 sort_reverse   = false
 sort_dir_first = true
@@ -8,55 +13,166 @@ sort_translit  = false
 linemode       = "none"
 show_hidden    = false
 show_symlink   = true
-scrolloff      = 8
+scrolloff      = 5
 mouse_events   = [ "click", "scroll" ]
 title_format   = "Yazi: {cwd}"
 
+# ---------------------------
+# Preview (Kitty inline graphics)
+# ---------------------------
 [preview]
-wrap            = "no"
-tab_size        = 2
-max_width       = 800
-max_height      = 1000
-cache_dir       = ""
-image_delay     = 10
-image_filter    = "triangle"
-image_quality   = 90
-
-# Alacritty doesn't support sixel, so disable it
-sixel_fraction  = 0
-
-ueberzug_scale  = 1
-ueberzug_offset = [ 0, 0, 0, 0 ]
+wrap          = "no"
+tab_size      = 2
+max_width     = 1600
+max_height    = 1600
+cache_dir     = ""
+image_delay   = 10
+image_filter  = "triangle"
+image_quality = 80
 
 # ---------------------------
-# Openers
+# Openers (Linux focused)
 # ---------------------------
-
 [opener]
-open = [
-  { run = 'xdg-open "$@"', orphan = true }
-]
 
 edit = [
-  { run = 'nvim "$@"', block = true }
+  { run = '${EDITOR:-nvim} "%s"', desc = "$EDITOR", for = "linux", block = true },
+  { run = 'code -w "%s"',         desc = "VS Code", for = "linux", block = true },
 ]
 
-pdf = [
-  { run = 'zathura "$@"', orphan = true }
+open = [
+  { run = 'xdg-open "%s1"', desc = "Open", for = "linux", orphan = true },
+]
+
+play = [
+  { run = 'mpv -- "%s1"', desc = "mpv", for = "linux", orphan = true },
+]
+
+reveal = [
+  { run = 'xdg-open "%d1"', desc = "Reveal in file manager", for = "linux", orphan = true },
+]
+
+extract = [
+  { run = "ya pub extract --list %s", desc = "Extract here" },
+]
+
+download = [
+  { run = "ya emit download --open %S", desc = "Download and open" },
+  { run = "ya emit download %S",        desc = "Download" },
 ]
 
 # ---------------------------
 # Open Rules
 # ---------------------------
-
 [open]
 rules = [
-  { mime = "text/*", use = "edit" },
-  { mime = "application/x-shellscript", use = "edit" },
-  { mime = "application/pdf", use = "pdf" },
-  { mime = "image/*", use = "open" },
-  { mime = "video/*", use = "open" },
-  { mime = "audio/*", use = "open" },
-  { url = "*", use = "open" },
-  { mime = "*/*", use = "open" }
+  { url = "*/", use = [ "edit", "open", "reveal" ] },
+
+  { mime = "text/*", use = [ "edit", "reveal" ] },
+
+  { mime = "image/*", use = [ "open", "reveal" ] },
+
+  { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
+
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}",
+    use = [ "extract", "reveal" ] },
+
+  { mime = "application/{json,ndjson}", use = [ "edit", "reveal" ] },
+  { mime = "*/javascript", use = [ "edit", "reveal" ] },
+
+  { mime = "inode/empty", use = [ "edit", "reveal" ] },
+
+  { mime = "vfs/{absent,stale}", use = [ "download" ] },
+
+  { url = "*", use = [ "open", "reveal" ] },
 ]
+
+# ---------------------------
+# Tasks
+# ---------------------------
+[tasks]
+micro_workers    = 10
+macro_workers    = 10
+bizarre_retry    = 3
+image_alloc      = 536870912
+image_bound      = [ 10000, 10000 ]
+suppress_preload = false
+
+# ---------------------------
+# Plugins
+# ---------------------------
+[plugin]
+
+fetchers = [
+  { id = "mime", url = "*/",         run = "mime.dir",    prio = "high" },
+  { id = "mime", url = "local://*",  run = "mime.local",  prio = "high" },
+  { id = "mime", url = "remote://*", run = "mime.remote", prio = "high" },
+]
+
+spotters = [
+  { url = "*/", run = "folder" },
+
+  { mime = "text/*", run = "code" },
+
+  { mime = "image/{avif,hei?,jxl}", run = "magick" },
+  { mime = "image/svg+xml",         run = "svg" },
+  { mime = "image/*",               run = "image" },
+
+  { mime = "video/*", run = "video" },
+
+  { mime = "vfs/*",  run = "vfs" },
+  { mime = "null/*", run = "null" },
+
+  { url = "*", run = "file" },
+]
+
+preloaders = [
+  { mime = "image/{avif,hei?,jxl}", run = "magick" },
+  { mime = "image/svg+xml",         run = "svg" },
+  { mime = "image/*",               run = "image" },
+
+  { mime = "video/*",         run = "video" },
+  { mime = "application/pdf", run = "pdf" },
+
+  { mime = "font/*", run = "font" },
+]
+
+previewers = [
+  { url = "*/", run = "folder" },
+
+  { mime = "text/*", run = "code" },
+  { mime = "application/{json,ndjson}", run = "json" },
+
+  { mime = "image/{avif,hei?,jxl}", run = "magick" },
+  { mime = "image/svg+xml",         run = "svg" },
+  { mime = "image/*",               run = "image" },
+
+  { mime = "video/*",         run = "video" },
+  { mime = "application/pdf", run = "pdf" },
+
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma}",
+    run = "archive" },
+
+  { mime = "inode/empty", run = "empty" },
+
+  { mime = "vfs/*",  run = "vfs" },
+  { mime = "null/*", run = "null" },
+
+  { url = "*", run = "file" },
+]
+
+# ---------------------------
+# UI / Input
+# ---------------------------
+[input]
+cursor_blink = false
+
+[confirm]
+trash_title  = "Trash {n} selected file{s}?"
+delete_title = "Permanently delete {n} selected file{s}?"
+
+[which]
+sort_by        = "none"
+sort_sensitive = false
+sort_reverse   = false
+sort_translit  = false            impletment in it

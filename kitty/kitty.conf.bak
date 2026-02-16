@@ -1,0 +1,40 @@
+# Shell
+shell /usr/bin/zsh
+
+# Environment
+term xterm-256color
+
+# Window
+window_padding_width 28
+window_padding_height 28
+background_opacity 0.96
+hide_window_decorations yes
+resize_in_steps yes
+
+# Font
+font_family JetBrainsMono Nerd Font
+bold_font JetBrainsMono Nerd Font Bold
+italic_font JetBrainsMono Nerd Font Italic
+bold_italic_font JetBrainsMono Nerd Font Bold Italic
+font_size 12.0
+
+# Cursor
+cursor_shape beam
+cursor_blink_interval 0.6
+cursor_stop_blinking_after 0
+
+# Scrolling
+scrollback_lines 10000
+wheel_scroll_multiplier 3.0
+
+# Selection
+copy_on_select yes
+
+# Mouse
+mouse_hide_wait 1.0
+
+# Yazi support
+allow_remote_control yes
+
+# Theme
+include /themes/Matugen.conf

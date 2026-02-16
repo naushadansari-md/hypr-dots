@@ -1,10 +1,5 @@
 [config]
 
-[templates.alacritty]
-input_path  = '~/.config/matugen/templates/alacritty-colors.toml'
-output_path = '~/.config/alacritty/colors.toml'
-post_hook = 'pkill -USR1 alacritty || pkill -USR2 alacritty || true'
-
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland-colors.conf'
 output_path = '~/.config/hypr/colors/colors.conf'
@@ -53,4 +48,9 @@ post_hook = 'pkill -USR2 btop'
 [templates.yazi]
 input_path = '~/.config/matugen/templates/yazi-theme.toml'
 output_path = '~/.config/yazi/theme.toml'
+
+[templates.kitty]
+input_path = "~/.config/matugen/templates/kitty-colors.conf"
+output_path = "~/.config/kitty/themes/Matugen.conf"
+post_hook = "kitty @ set-colors -a ~/.config/kitty/themes/Matugen.conf"
 
