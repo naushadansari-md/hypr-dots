@@ -1,3 +1,37 @@
+[mgr]
+ratio          = [ 1, 3, 4 ]
+sort_by        = "natural"
+sort_sensitive = false
+sort_reverse   = false
+sort_dir_first = true
+sort_translit  = false
+linemode       = "none"
+show_hidden    = false
+show_symlink   = true
+scrolloff      = 8
+mouse_events   = [ "click", "scroll" ]
+title_format   = "Yazi: {cwd}"
+
+[preview]
+wrap            = "no"
+tab_size        = 2
+max_width       = 800
+max_height      = 1000
+cache_dir       = ""
+image_delay     = 10
+image_filter    = "triangle"
+image_quality   = 90
+
+# Alacritty doesn't support sixel, so disable it
+sixel_fraction  = 0
+
+ueberzug_scale  = 1
+ueberzug_offset = [ 0, 0, 0, 0 ]
+
+# ---------------------------
+# Openers
+# ---------------------------
+
 [opener]
 open = [
   { run = 'xdg-open "$@"', orphan = true }
@@ -7,12 +41,22 @@ edit = [
   { run = 'nvim "$@"', block = true }
 ]
 
+pdf = [
+  { run = 'zathura "$@"', orphan = true }
+]
+
+# ---------------------------
+# Open Rules
+# ---------------------------
+
 [open]
 rules = [
   { mime = "text/*", use = "edit" },
-  { mime = "application/pdf", use = "open" },
+  { mime = "application/x-shellscript", use = "edit" },
+  { mime = "application/pdf", use = "pdf" },
   { mime = "image/*", use = "open" },
   { mime = "video/*", use = "open" },
   { mime = "audio/*", use = "open" },
-  { url = "*", use = "open" }
+  { url = "*", use = "open" },
+  { mime = "*/*", use = "open" }
 ]
