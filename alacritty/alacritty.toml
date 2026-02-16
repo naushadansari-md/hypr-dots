@@ -1,22 +1,81 @@
-[general]
-import = [
-  "~/.config/alacritty/colors.toml"
-]
+# ==========================================
+# Alacritty - Clean Modern Setup (0.16.1)
+# ==========================================
 
+# ------------------------------------------
+# General
+# ------------------------------------------
+[general]
+import = ["~/.config/alacritty/colors.toml"]
+
+# ------------------------------------------
+# Shell
+# ------------------------------------------
 [terminal]
 shell = { program = "/usr/bin/zsh" }
 
+# ------------------------------------------
+# Environment
+# ------------------------------------------
 [env]
 TERM = "xterm-256color"
 
+# ------------------------------------------
+# Window
+# ------------------------------------------
 [window]
-padding = { x = 32, y = 32 }
-dynamic_padding = true
-opacity = 0.98
-decorations = "None"
+padding          = { x = 28, y = 28 }
+dynamic_padding  = true
+opacity          = 0.96
+decorations      = "None"
+startup_mode     = "Windowed"
+resize_increments = true
 
+# ------------------------------------------
+# Font
+# ------------------------------------------
 [font]
-size = 10.5
+size = 12.0
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
+style  = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style  = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style  = "Italic"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style  = "Bold Italic"
+
+# ------------------------------------------
+# Cursor
+# ------------------------------------------
+[cursor]
+style            = { shape = "Beam", blinking = "On" }
+blink_interval   = 600
+unfocused_hollow = true
+
+# ------------------------------------------
+# Scrolling
+# ------------------------------------------
+[scrolling]
+history    = 10000
+multiplier = 3
+
+# ------------------------------------------
+# Selection
+# ------------------------------------------
+[selection]
+save_to_clipboard = true
+
+# ------------------------------------------
+# Mouse
+# ------------------------------------------
+[mouse]
+hide_when_typing = true
