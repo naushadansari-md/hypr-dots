@@ -36,10 +36,6 @@ input_path = '~/.config/matugen/templates/fuzzel.ini'
 output_path = '~/.config/fuzzel/colors.ini'
 post_hook = 'pkill fuzzel || true'
 
-[templates.walker]
-input_path = '~/.config/matugen/templates/colors.css'
-output_path = '~/.config/walker/colors.css'
-
 [templates.btop]
 input_path = '~/.config/matugen/templates/btop.theme'
 output_path = '~/.config/btop/themes/matugen.theme'
@@ -52,5 +48,5 @@ output_path = '~/.config/yazi/theme.toml'
 [templates.kitty]
 input_path = "~/.config/matugen/templates/kitty-colors.conf"
 output_path = "~/.config/kitty/themes/Matugen.conf"
-post_hook = "kitty @ set-colors -a ~/.config/kitty/themes/Matugen.conf"
+
 

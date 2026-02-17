@@ -175,4 +175,4 @@ delete_title = "Permanently delete {n} selected file{s}?"
 sort_by        = "none"
 sort_sensitive = false
 sort_reverse   = false
-sort_translit  = false            impletment in it
+sort_translit  = false          

@@ -2,27 +2,19 @@
 # ---------------------------------------------------------
 # swww + matugen + waybar + mako + rofi wallpaper preview
 # ---------------------------------------------------------
-# - Picks a wallpaper (arg or random)
-# - Sets it via swww (NO transition)
-# - Generates theme via matugen
-# - Reloads waybar + mako
-# - Creates blurred wallpaper for rofi
-# - Writes rofi .rasi with current-image
-# - Reloads Hyprland
-# ---------------------------------------------------------
 
 set -u
 set -o pipefail
 
 # ----------------------------
-# SECTION: Lock (No Overlap)
+# Lock (No Overlap)
 # ----------------------------
 LOCKFILE="${XDG_CACHE_HOME:-$HOME/.cache}/swww-matugen.lock"
 exec 9>"$LOCKFILE"
 flock -n 9 || exit 0
 
 # ----------------------------
-# SECTION: Helpers
+# Helpers
 # ----------------------------
 have() { command -v "$1" >/dev/null 2>&1; }
 warn() { echo "WARN: $*"; }
@@ -30,7 +22,7 @@ fail() { echo "FAIL: $*"; exit 1; }
 need() { have "$1" || fail "Missing dependency: $1"; }
 
 # ----------------------------
-# SECTION: Logging / Cache
+# Logging / Cache
 # ----------------------------
 CACHE="${XDG_CACHE_HOME:-$HOME/.cache}"
 mkdir -p "$CACHE" || exit 1
@@ -44,7 +36,7 @@ echo "User: $(id -un)"
 echo "PWD : $(pwd)"
 
 # ----------------------------
-# SECTION: Requirements (Core tools)
+# Requirements (Core tools)
 # ----------------------------
 need flock
 need find
@@ -52,7 +44,7 @@ need shuf
 need tee
 
 # ----------------------------
-# SECTION: Paths / Variables
+# Paths / Variables
 # ----------------------------
 WALLPAPERS_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/wallpapers"
 
@@ -79,7 +71,7 @@ EOF
 echo "OK: placeholder rasi created"
 
 # ----------------------------
-# SECTION: Wallpaper Pick
+# Wallpaper Pick
 # ----------------------------
 pick_random_wallpaper() {
   [[ -d "$WALLPAPERS_DIR" ]] || return 1
@@ -98,7 +90,7 @@ fi
 echo "Wallpaper: $wallpaper"
 
 # ----------------------------
-# SECTION: swww (Set Wallpaper - NO Transition)
+# swww (Set Wallpaper)
 # ----------------------------
 if have swww; then
   swww query >/dev/null 2>&1 || swww init || true
@@ -108,7 +100,7 @@ else
 fi
 
 # ----------------------------
-# SECTION: matugen (Generate Theme)
+# matugen (Generate Theme)
 # ----------------------------
 if have matugen; then
   matugen image "$wallpaper" || warn "matugen failed"
@@ -117,7 +109,7 @@ else
 fi
 
 # ----------------------------
-# SECTION: Waybar (Reload)
+# Waybar (Reload)
 # ----------------------------
 if have waybar; then
   if have pkill; then
@@ -129,14 +121,14 @@ if have waybar; then
 fi
 
 # ----------------------------
-# SECTION: Mako (Reload Notifications)
+# Mako (Reload Notifications)
 # ----------------------------
 if have makoctl; then
   makoctl reload || true
 fi
 
 # ----------------------------
-# SECTION: Wallpaper Blur (Rofi Preview Image)
+# Wallpaper Blur (Rofi Preview Image)
 # ----------------------------
 tmp_blur="$CACHE/.blur_tmp.png"
 rm -f "$BLURRED" "$tmp_blur" 2>/dev/null || true
@@ -153,7 +145,7 @@ else
 fi
 
 # ----------------------------
-# SECTION: Rofi (Write Final .rasi)
+# Rofi (.rasi)
 # ----------------------------
 FINAL_IMAGE="$BLURRED"
 if [[ ! -f "$FINAL_IMAGE" ]]; then
@@ -170,7 +162,7 @@ EOF
 echo "OK: wrote final rasi: $RASI_FILE"
 
 # ----------------------------
-# SECTION: Hyprland (Reload)
+# Hyprland (Reload)
 # ----------------------------
 if have hyprctl; then
   hyprctl reload >/dev/null 2>&1 || true
