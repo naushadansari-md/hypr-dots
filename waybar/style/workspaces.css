@@ -53,6 +53,8 @@
   opacity: 1;
   background: alpha(@error, 0.25);
   border: 1px solid alpha(@error, 0.6);
+  min-width: 30px;
+  border-radius: 8px;
   box-shadow:
     0 0 14px alpha(@error, 0.35);
 }

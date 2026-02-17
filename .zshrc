@@ -56,6 +56,7 @@ if [[ -f /etc/arch-release ]]; then
   alias pac-installed-list='pacman -Qs'
   alias pac-installed-package-info='pacman -Qi'
   alias pac-clean='sudo pacman -Scc'
+  alias po= 'sudo pacman -Rns $(pacman -Qdtq)'
 fi
 
 # -----------------------------------------------------
@@ -137,3 +138,4 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
+eval "$(zoxide init zsh)"

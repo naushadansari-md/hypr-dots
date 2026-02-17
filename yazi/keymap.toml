@@ -42,7 +42,8 @@ keymap = [
   { on = "L", run = "forward", desc = "Forward to next directory" },
 
   # --- Toggle ---
-  { on = "<Space>", run = [ "toggle", "arrow 1" ], desc = "Toggle the current selection state" },
+  { on = "<Space>", run = [ "toggle", "arrow 1" ], desc = "Toggle selection (and move down)" },
+  { on = "s",       run = "toggle",                desc = "Toggle selection (stay on current file)" },
   { on = "<C-a>",   run = "toggle_all --state=on", desc = "Select all files" },
   { on = "<C-r>",   run = "toggle_all",            desc = "Invert selection of all files" },
 
@@ -77,10 +78,13 @@ keymap = [
   { on = "r",         run = "rename --cursor=before_ext",  desc = "Rename selected file(s)" },
   { on = ";",         run = "shell --interactive",         desc = "Run a shell command" },
   { on = ":",         run = "shell --block --interactive", desc = "Run a shell command (block until finishes)" },
-  { on = ".",         run = "hidden toggle",               desc = "Toggle the visibility of hidden files" },
-  { on = "s",         run = "search --via=fd",             desc = "Search files by name via fd" },
+  { on = ".",         run = "hidden toggle",               desc = "Toggle hidden files" },
+
+  # Search: moved from "s" to "F" (since "s" is now toggle-only)
+  { on = "F",         run = "search --via=fd",             desc = "Search files by name via fd" },
   { on = "S",         run = "search --via=rg",             desc = "Search files by content via ripgrep" },
   { on = "<C-s>",     run = "escape --search",             desc = "Cancel the ongoing search" },
+
   { on = "z",         run = "plugin fzf",                  desc = "Jump to a file/directory via fzf" },
   { on = "Z",         run = "plugin zoxide",               desc = "Jump to a directory via zoxide" },
 
@@ -99,7 +103,7 @@ keymap = [
   { on = [ "c", "n" ], run = "copy name_without_ext", desc = "Copy the filename without extension" },
 
   # --- Filter / Find ---
-  { on = "f", run = "filter --smart", desc = "Filter files" },
+  { on = "f", run = "filter --smart",          desc = "Filter files" },
   { on = "/", run = "find --smart",            desc = "Find next file" },
   { on = "?", run = "find --previous --smart", desc = "Find previous file" },
   { on = "n", run = "find_arrow",              desc = "Next found" },
@@ -373,15 +377,29 @@ keymap = [
 ]
 
 # ============================================================
-# Custom (Kitty + Hyprland)
+# Custom (Kitty + Hyprland) - Improved
 # ============================================================
 
+# Don't override "t" (tab_create). Use "T" for floating terminal.
 [[mgr.prepend_keymap]]
-on   = "t"
+on   = "T"
 run  = "shell --orphan -- kitty --class FloatTerm --directory \"$PWD\""
 desc = "Open floating kitty terminal here"
 
+# Open selection in nvim (new kitty window)
 [[mgr.prepend_keymap]]
 on   = "e"
 run  = "shell --orphan -- kitty --class FloatNvim --directory \"$PWD\" -e nvim \"$@\""
 desc = "Open selection in nvim (new kitty window)"
+
+# New tab in hovered directory
+[[mgr.prepend_keymap]]
+on   = [ "g", "t" ]
+run  = "tab_create"
+desc = "Create a new tab (hovered directory)"
+
+# Close current tab
+[[mgr.prepend_keymap]]
+on   = [ "t", "c" ]
+run  = "tab_close"
+desc = "Close current tab"
