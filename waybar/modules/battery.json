@@ -1,0 +1,9 @@
+{
+  "custom/battery": {
+    "exec": "~/.config/waybar/scripts/battery_toggle.sh",
+    "return-type": "json",
+    "interval": 5,
+    "signal": 9,
+    "on-click": "~/.config/waybar/scripts/battery_toggle_click.sh"
+  }
+}

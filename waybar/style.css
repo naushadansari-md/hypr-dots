@@ -6,9 +6,10 @@
 @import "/home/saad/.config/waybar/style/hardware.css";
 @import "/home/saad/.config/waybar/style/launcher.css";
 @import "/home/saad/.config/waybar/style/pulseaudio.css";
-@import "/home/saad/.config/waybar/style/tray.css";
+@import "/home/saad/.config/waybar/style/network.css";
 @import "/home/saad/.config/waybar/style/workspaces.css";
 @import "/home/saad/.config/waybar/style/power.css";
+@import "/home/saad/.config/waybar/style/custom-battery.css";
 @import "/home/saad/.config/waybar/style/backlight.css";
 @import "/home/saad/.config/waybar/style/notificationmode.css";
 
@@ -68,7 +69,7 @@ window#waybar {
 #network,
 #backlight,
 #battery,
-#tray,
+#network,
 #pulseaudio,
 #custom-launcher,
 #custom-notificationmode{
@@ -100,11 +101,10 @@ window#waybar {
 #network:hover,
 #backlight:hover,
 #battery:hover,
-#tray:hover,
 #pulseaudio:hover,
 #custom-launcher:hover,
+#custom-battery:hover,
 #custom-notificationmode:hover {
-  opacity: 1;
   background: radial-gradient(circle at 50% 250%,
             alpha(shade(@surface, 0.85), 0.96),
             alpha(@surface_dim, 0.96)) padding-box,
@@ -112,6 +112,7 @@ window#waybar {
   box-shadow:
       0 0 6px alpha(@primary, 0.25),
       inset 1px 2px 2px rgba(255, 255, 255, 0.25);
+  opacity: 1;
 }
 
 

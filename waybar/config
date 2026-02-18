@@ -26,20 +26,23 @@
       "custom/space",
       "pulseaudio",
       "custom/space",
-      "group/trayicons",
+      "network",
+      "custom/space",
+      "custom/battery",
       "custom/space",
       "group/power"
     ],
 
     "include": [
       "/home/saad/.config/waybar/modules/clock.json",
+      "/home/saad/.config/waybar/modules/battery.json",
       "/home/saad/.config/waybar/modules/hardware.json",
       "/home/saad/.config/waybar/modules/launcher.json",
       "/home/saad/.config/waybar/modules/pulseaudio.json",
-      "/home/saad/.config/waybar/modules/tray.json",
+      "/home/saad/.config/waybar/modules/network.json",
       "/home/saad/.config/waybar/modules/workspaces.json",
       "/home/saad/.config/waybar/modules/power.json",
-      "/home/saad/.config/waybar/modules/notificationmode.json",
+      "/home/saad/.config/waybar/modules/notificationmode.json"
     ],
 
     "custom/space": {
