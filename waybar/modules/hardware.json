@@ -2,23 +2,23 @@
   "cpu": {
     "interval": 3,
     "format": " {usage:2}%",
-    "on-click": "kitty -e htop"
+    "on-click": "kitty -e btop"
   },
   "memory": {
     "interval": 3,
     "format": "  {}%",
-    "on-click": "kitty -e htop"
+    "on-click": "kitty -e btop"
   },
   "temperature": {
     "thermal-zone": 2,
     "hwmon-path": [
       "/sys/class/hwmon/hwmon2/temp1_input",
-      "/sys/class/thermal/thermal_zone0/temp"
+      "/sys/class/thermal/thermal_zone0/btop"
     ],
     "critical-threshold": 70,
     "format-critical": " {temperatureC}°C",
     "format": " {temperatureC}°C",
-    "on-click": "kitty -e htop"
+    "on-click": "kitty -e btop"
   },
   "backlight": {
     "device": "intel_backlight",
