@@ -1,7 +1,7 @@
 #custom-launcher {
   font-size: 16px;
   color: @primary;
-  padding: 0 6px;
+  padding: 0 10px;
 }
 
 #custom-launcher:hover {

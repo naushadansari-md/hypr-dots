@@ -11,7 +11,7 @@
     "modules-left": [
       "custom/launcher",
       "custom/space",
-      "group/hardware",
+      "group/hardware"
      
     ],
 
@@ -39,7 +39,6 @@
       "/home/saad/.config/waybar/modules/tray.json",
       "/home/saad/.config/waybar/modules/workspaces.json",
       "/home/saad/.config/waybar/modules/power.json",
-      "/home/saad/.config/waybar/modules/backlight.json",
       "/home/saad/.config/waybar/modules/notificationmode.json",
     ],
 

@@ -2,33 +2,36 @@
   "cpu": {
     "interval": 3,
     "format": " {usage:2}%",
-    "on-click": "kitty -e btop"
+    "on-click": "kitty --class FloatTerm -e btop"
   },
+
   "memory": {
     "interval": 3,
-    "format": "  {}%",
-    "on-click": "kitty -e btop"
+    "format": " {}%",
+    "on-click": "kitty --class FloatTerm -e btop"
   },
+
   "temperature": {
-    "thermal-zone": 2,
-    "hwmon-path": [
-      "/sys/class/hwmon/hwmon2/temp1_input",
-      "/sys/class/thermal/thermal_zone0/btop"
-    ],
-    "critical-threshold": 70,
-    "format-critical": " {temperatureC}°C",
-    "format": " {temperatureC}°C",
-    "on-click": "kitty -e btop"
-  },
+  "interval": 3,
+  "thermal-zone": 2,
+  "critical-threshold": 70,
+  "format": " {temperatureC}°C",
+  "format-critical": " {temperatureC}°C",
+  "on-click": "kitty --class FloatTerm -e btop"
+},
+
   "backlight": {
     "device": "intel_backlight",
-    "rotate": 0,
     "format": "{icon} {percent}%",
-    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "format-icons": [
+      "", "", "", "", "",
+      "", "", "", ""
+    ],
     "on-scroll-up": "brightnessctl set 1%+",
     "on-scroll-down": "brightnessctl set 1%-",
     "min-length": 6
   },
+
   "group/hardware": {
     "orientation": "horizontal",
     "modules": [
