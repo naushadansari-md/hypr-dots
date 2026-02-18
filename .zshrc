@@ -56,7 +56,6 @@ if [[ -f /etc/arch-release ]]; then
   alias pac-installed-list='pacman -Qs'
   alias pac-installed-package-info='pacman -Qi'
   alias pac-clean='sudo pacman -Scc'
-  alias po= 'sudo pacman -Rns $(pacman -Qdtq)'
 fi
 
 # -----------------------------------------------------
@@ -72,9 +71,10 @@ fi
 # Only define AUR aliases if helper exists
 if [[ -n "$aurhelper" ]]; then
   alias up="$aurhelper -Syu"
-  alias un="$aurhelper -Rns"
+  alias un="$aurhelper -Rns" 
   alias pl="$aurhelper -Qs"
   alias pa="$aurhelper -Ss"
+  alias po="$aurhelper -Rns $(pacman -Qdtq)"
 fi
 
 # -----------------------------------------------------
@@ -103,7 +103,14 @@ alias ga='git add .'
 alias gc='git commit -m'
 alias gp='git push'
 alias gpl='git pull'
+alias gst="git stash"
+alias gsp="git stash; git pull"
 alias gcheck='git checkout'
+
+# -----------------------------------------------------
+# SYSTEM
+# -----------------------------------------------------
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 # -----------------------------------------------------
 #  YAZI (CD ON EXIT) - WORKS IN EXISTING TERMINAL
