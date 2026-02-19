@@ -4,10 +4,17 @@
   <property name="last-view" type="string" value="ThunarIconView"/>
   <property name="last-icon-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_100_PERCENT"/>
   <property name="last-window-maximized" type="bool" value="true"/>
-  <property name="last-show-hidden" type="bool" value="false"/>
+  <property name="last-show-hidden" type="bool" value="true"/>
   <property name="last-separator-position" type="int" value="196"/>
   <property name="misc-single-click" type="bool" value="false"/>
   <property name="misc-symbolic-icons-in-sidepane" type="bool" value="true"/>
   <property name="shortcuts-icon-size" type="string" value="THUNAR_ICON_SIZE_16"/>
   <property name="shortcuts-icon-emblems" type="bool" value="true"/>
+  <property name="tree-icon-emblems" type="bool" value="true"/>
+  <property name="last-restore-tabs" type="bool" value="true"/>
+  <property name="last-tabs-left" type="array">
+    <value type="string" value="file:///home/saad/Downloads"/>
+  </property>
+  <property name="last-focused-tab-left" type="int" value="0"/>
+  <property name="last-focused-tab-right" type="int" value="0"/>
 </channel>
