@@ -4,7 +4,7 @@
 configuration {
     modi:                       "drun,run";
     show-icons:                 true;
-    icon-theme:                 "WhiteSur";
+    icon-theme:                 "Gruvbox-B-MB-Dark";
     display-drun:               "APPS";
     display-run:                "RUN";
     display-filebrowser:        "FILES";
