@@ -1,5 +1,5 @@
 /* ------------------------------
-   CUSTOM BATTERY
+   CUSTOM BATTERY (Matugen)
 --------------------------------*/
 
 #custom-battery {
@@ -8,6 +8,7 @@
   margin: 0 6px;
   border-radius: 12px;
   transition: 150ms ease;
+
   background: radial-gradient(circle at 50% 250%,
             alpha(shade(@surface, 0.85), 0.90),
             alpha(@surface_dim, 0.90)) padding-box,
@@ -17,4 +18,53 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   opacity: 0.90;
   color: @on_surface;
+}
+
+/* Charging: use Matugen "tertiary" (usually greenish) + gentle pulse */
+#custom-battery.charging {
+  color: @tertiary;
+  background: radial-gradient(circle at 50% 250%,
+            alpha(shade(@surface, 0.85), 0.90),
+            alpha(@surface_dim, 0.90)) padding-box,
+        linear-gradient(@tertiary, @on_tertiary) border-box;
+  opacity: 0.98;
+  animation: battery-pulse 1.2s ease-in-out infinite;
+}
+
+/* Warning: use "secondary" (often yellow/orange-ish depending on scheme) */
+#custom-battery.warning {
+  color: @secondary;
+  background: radial-gradient(circle at 50% 250%,
+            alpha(shade(@surface, 0.85), 0.90),
+            alpha(@surface_dim, 0.90)) padding-box,
+        linear-gradient(@secondary, @on_secondary) border-box;
+  opacity: 0.98;
+}
+
+/* Critical: use "error" + stronger emphasis */
+#custom-battery.critical {
+  color: @error;
+  background: radial-gradient(circle at 50% 250%,
+            alpha(shade(@surface, 0.85), 0.90),
+            alpha(@surface_dim, 0.90)) padding-box,
+        linear-gradient(@error, @on_error) border-box;
+  opacity: 1.0;
+  animation: battery-blink 0.9s steps(2, end) infinite;
+}
+
+/* Optional: hover effect */
+#custom-battery:hover {
+  opacity: 1.0;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.30);
+}
+
+/* Animations */
+@keyframes battery-pulse {
+  0%   { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); }
+  50%  { box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35); }
+  100% { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); }
+}
+
+@keyframes battery-blink {
+  50% { opacity: 0.55; }
 }

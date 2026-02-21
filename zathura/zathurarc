@@ -1,11 +1,21 @@
 " -----------------------------------------------------------------------------
-" Zathura - Gruvbox Dark (Full Polished Version)
+" Zathura - Gruvbox Dark (Arch 2026 Compatible)
 " -----------------------------------------------------------------------------
 
-" ==============================
-" Base Colors
-" ==============================
+" =============================================================================
+" UI
+" =============================================================================
+" guioptions:
+"   s = statusbar
+"   v = vertical scrollbar
+"   h = horizontal scrollbar
+set guioptions "v"
 
+set font "FiraCode Nerd Font 12"
+
+" =============================================================================
+" COLORS (Gruvbox Dark)
+" =============================================================================
 set default-bg              "#1d2021"
 set default-fg              "#ebdbb2"
 
@@ -32,42 +42,41 @@ set completion-fg           "#ebdbb2"
 set completion-highlight-bg "#665c54"
 set completion-highlight-fg "#ffffff"
 
-" ==============================
-" Recolor (Dark Mode PDFs)
-" ==============================
-
+" =============================================================================
+" RECOLOR (Dark PDFs)
+" =============================================================================
 set recolor                 "true"
 set recolor-lightcolor      "#1d2021"
 set recolor-darkcolor       "#ebdbb2"
 set recolor-reverse-video   "true"
 set recolor-keephue         "true"
 
-" ==============================
-" Behavior & Performance
-" ==============================
+" =============================================================================
+" SCROLL / VIEW
+" =============================================================================
+set scroll-page-aware       "true"
+set scroll-wrap             "false"
+set scroll-step             30
+set scroll-full-overlap     0.1
 
-set selection-clipboard clipboard
-set incremental-search true
-set search-hadjust true
-set adjust-open width
-set window-title-basename true
+set page-v-padding          6
+set page-h-padding          6
 
-set scroll-step 60
-set scroll-page-aware "true"
-set smooth-scroll "true"
+set page-cache-size         20
+set render-loading          "true"
 
-set page-padding 6
-set page-cache-size 20
-set render-loading true
+" =============================================================================
+" BEHAVIOR
+" =============================================================================
+set selection-clipboard     clipboard
+set incremental-search      "true"
+set search-hadjust          "true"
+set adjust-open             width
+set window-title-basename   "true"
 
-set font "FiraCode Nerd Font 12"
-
-" Hide GUI chrome (clean look)
-set guioptions none
-
-" -----------------------------------------------------------------------------
-" Key Mappings (Vim Style)
-" -----------------------------------------------------------------------------
+" =============================================================================
+" KEY MAPPINGS (Vim style)
+" =============================================================================
 
 " Zoom
 map [normal]     z zoom in
@@ -75,17 +84,29 @@ map [normal]     Z zoom out
 map [fullscreen] z zoom in
 map [fullscreen] Z zoom out
 
-" Half page scroll
-map [normal]     u scroll half-up
-map [normal]     d scroll half-down
-map [fullscreen] u scroll half-up
-map [fullscreen] d scroll half-down
+" Scroll (fine)
+map [normal]     j scroll down
+map [normal]     k scroll up
+map [fullscreen] j scroll down
+map [fullscreen] k scroll up
 
-" Full page scroll
+" Half page
+map [normal]     d scroll half-down
+map [normal]     u scroll half-up
+map [fullscreen] d scroll half-down
+map [fullscreen] u scroll half-up
+
+" Full page
 map [normal]     J scroll full-down
 map [normal]     K scroll full-up
 
-" Fullscreen toggle
+" Top / Bottom
+map [normal]     gg goto top
+map [normal]     G  goto bottom
+map [fullscreen] gg goto top
+map [fullscreen] G  goto bottom
+
+" Fullscreen
 map [normal]     f toggle_fullscreen
 map [fullscreen] f toggle_fullscreen
 
@@ -99,11 +120,11 @@ map [normal]     W adjust_window width
 map [fullscreen] H adjust_window best-fit
 map [fullscreen] W adjust_window width
 
-" Toggle page mode
+" Page mode toggle
 map [normal]     D toggle_page_mode
 map [fullscreen] D toggle_page_mode
 
-" Toggle statusbar
+" Statusbar toggle
 map [normal]     b toggle_statusbar
 map [fullscreen] b toggle_statusbar
 
@@ -111,6 +132,6 @@ map [fullscreen] b toggle_statusbar
 map [normal]     r rotate
 map [fullscreen] r rotate
 
-" Toggle recolor quickly
-map [normal]     i set recolor
-map [fullscreen] i set recolor
+" Recolor toggle
+map [normal]     i recolor
+map [fullscreen] i recolor

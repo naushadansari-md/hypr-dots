@@ -13,5 +13,5 @@ else
   echo "pct" > "$MODE_FILE"
 fi
 
-# Refresh the module instantly (signal 9)
-pkill -RTMIN+9 waybar || true
+# refresh the module (matches "signal": 9)
+pkill -RTMIN+9 waybar 2>/dev/null || true
