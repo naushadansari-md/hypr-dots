@@ -1,34 +1,51 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-action="$1"
-icon1="$2"
-icon2="$3"
+MODE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/waybar/notification_mode"
+mkdir -p "$(dirname "$MODE_FILE")"
 
-# Get current modes
-mode="$(makoctl mode 2>/dev/null)"
+ACTION="${1:-status}"
 
-if [[ "$mode" == *"do-not-disturb"* ]]; then
-    paused="true"
+# Icons passed from Waybar config
+ICON_NORMAL="${2:-}"
+ICON_DND="${3:-}"
+
+# Get current mode from mako
+get_mode() {
+    makoctl mode 2>/dev/null | awk '{print $1}' || echo "default"
+}
+
+set_mode() {
+    local new_mode="$1"
+    makoctl mode -s "$new_mode" >/dev/null 2>&1 || true
+    echo "$new_mode" > "$MODE_FILE"
+}
+
+case "$ACTION" in
+    toggle)
+        CURRENT="$(get_mode)"
+        if [[ "$CURRENT" == "do-not-disturb" ]]; then
+            set_mode "default"
+        else
+            set_mode "do-not-disturb"
+        fi
+        ;;
+    icon|status)
+        ;;
+esac
+
+MODE="$(get_mode)"
+
+# Build output
+if [[ "$MODE" == "do-not-disturb" ]]; then
+    TEXT="$ICON_DND"
+    CLASS="dnd"
+    TOOLTIP="Notifications: Do Not Disturb"
 else
-    paused="false"
+    TEXT="$ICON_NORMAL"
+    CLASS="normal"
+    TOOLTIP="Notifications: Enabled"
 fi
 
-if [ "$paused" = "false" ]; then
-    # Notifications ON
-    if [ "$action" = "toggle" ]; then
-        makoctl mode -s do-not-disturb > /dev/null 2>&1
-    fi
-
-    if [ "$action" = "icon" ]; then
-        echo "{ \"text\": \"$icon1\", \"class\": \"default\" }"
-    fi
-else
-    # Notifications OFF (DND)
-    if [ "$action" = "toggle" ]; then
-        makoctl mode -s default > /dev/null 2>&1
-    fi
-
-    if [ "$action" = "icon" ]; then
-        echo "{ \"text\": \"$icon2\", \"class\": \"dnd\" }"
-    fi
-fi
+printf '{"text":"%s","tooltip":"%s","class":"%s"}\n' \
+    "$TEXT" "$TOOLTIP" "$CLASS"
