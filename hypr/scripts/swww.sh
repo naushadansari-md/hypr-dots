@@ -152,11 +152,6 @@ if have waybar; then
 fi
 
 # ----------------------------
-# SwayNC (Ensure running; do NOT restart here)
-# ----------------------------
-pgrep -x swaync >/dev/null 2>&1 || swaync >/dev/null 2>&1 &
-
-# ----------------------------
 # Wallpaper Blur (Rofi Preview Image)
 # ----------------------------
 tmp_blur="$CACHE/.blur_tmp.png"

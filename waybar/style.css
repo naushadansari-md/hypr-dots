@@ -29,7 +29,7 @@
 #waybar {
   font-family: "JetBrainsMono Nerd Font", "Font Awesome 7 Free", monospace;      
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
   color: @on_surface;
   background: transparent;
   border: none;

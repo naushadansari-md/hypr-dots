@@ -7,7 +7,7 @@
 
   "control-center-width": 360,
   "control-center-height": 700,
-  "control-center-margin-top": 11,
+  "control-center-margin-top": 3,
   "control-center-margin-right": 3,
   "control-center-margin-left": 0,
 
@@ -28,13 +28,18 @@
   "hide-on-action": true,
   "script-fail-notify": true,
   "scripts": {},
+
   "notification-visibility": {
-    "example-name": {
-      "state": "muted",
-      "urgency": "Normal",
-      "app-name": "Spotify"
+    "osd-brightness": {
+      "state": "transient",
+      "summary": "^Brightness$"
+    },
+    "osd-volume": {
+      "state": "transient",
+      "summary": "^Volume$"
     }
   },
+
   "widgets": [
     "dnd",
     "buttons-grid",
@@ -44,6 +49,7 @@
     "title",
     "notifications"
   ],
+
   "widget-config": {
     "dnd": {
       "text": "Do not Disturb"
