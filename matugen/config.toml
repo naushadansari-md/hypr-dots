@@ -25,11 +25,6 @@ output_path = '~/.config/gtk-4.0/colors.css'
 input_path = '~/.config/matugen/templates/colors.css'
 output_path = '~/.config/nwg-dock-hyprland/colors.css'
 
-[templates.mako]
-input_path = '~/.config/matugen/templates/mako.conf'
-output_path = '~/.config/mako/mako-colors'
-post_hook = 'makoctl reload'
-
 [templates.fuzzel]
 input_path = '~/.config/matugen/templates/fuzzel.ini'
 output_path = '~/.config/fuzzel/colors.ini'
@@ -47,4 +42,6 @@ output_path = '~/.config/yazi/theme.toml'
 input_path = "~/.config/matugen/templates/kitty-colors.conf"
 output_path = "~/.config/kitty/themes/Matugen.conf"
 
-
+[templates.swaync]
+input_path = '~/.config/matugen/templates/colors.css'
+output_path = '~/.config/swaync/colors.css'

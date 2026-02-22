@@ -22,7 +22,7 @@
     "modules-right": [
       "clock",
       "custom/space",
-      "custom/notificationmode",
+      "custom/notification",
       "custom/space",
       "pulseaudio",
       "custom/space",
@@ -42,7 +42,7 @@
       "/home/saad/.config/waybar/modules/network.json",
       "/home/saad/.config/waybar/modules/workspaces.json",
       "/home/saad/.config/waybar/modules/power.json",
-      "/home/saad/.config/waybar/modules/notificationmode.json"
+      "/home/saad/.config/waybar/modules/notification.json"
     ],
 
     "custom/space": {

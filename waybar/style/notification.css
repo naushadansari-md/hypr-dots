@@ -2,7 +2,7 @@
    CUSTOM NOTIFICATION MODE (Matugen)
 --------------------------------*/
 
-#custom-notificationmode {
+#custom-notification {
   color: @on_surface;
   min-width: 16px;
 
@@ -16,19 +16,19 @@
 }
 
 /* DND: dim + soft error tint */
-#custom-notificationmode.dnd {
+#custom-notification.dnd {
   color: alpha(@on_surface, 0.55);
   background: alpha(@error, 0.10);
   border-color: alpha(@error, 0.25);
 }
 
 /* Optional: normal state accent (comment out if you want plain) */
-#custom-notificationmode.normal {
+#custom-notification.normal {
   color: @on_surface;
 }
 
 /* Hover: slightly more visible */
-#custom-notificationmode:hover {
+#custom-notification:hover {
   background: alpha(@surface, 0.50);
   border-color: alpha(@outline, 0.40);
 }

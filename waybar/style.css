@@ -11,7 +11,7 @@
 @import "/home/saad/.config/waybar/style/power.css";
 @import "/home/saad/.config/waybar/style/custom-battery.css";
 @import "/home/saad/.config/waybar/style/backlight.css";
-@import "/home/saad/.config/waybar/style/notificationmode.css";
+@import "/home/saad/.config/waybar/style/notification.css";
 
 /* ------------------------------
    GLOBAL RESET
@@ -72,7 +72,7 @@ window#waybar {
 #network,
 #pulseaudio,
 #custom-launcher,
-#custom-notificationmode{
+#custom-notification{
   min-height: 18px;
   padding: 2px 10px;
   margin: 0 4px;
@@ -104,7 +104,7 @@ window#waybar {
 #pulseaudio:hover,
 #custom-launcher:hover,
 #custom-battery:hover,
-#custom-notificationmode:hover {
+#custom-notification:hover {
   background: radial-gradient(circle at 50% 250%,
             alpha(shade(@surface, 0.85), 0.96),
             alpha(@surface_dim, 0.96)) padding-box,

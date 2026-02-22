@@ -5,22 +5,22 @@
 # : Manager [[[
 
 [mgr]
-cwd = { fg = "#f1dfd9" }
+cwd = { fg = "#dde4e2" }
 
 find_keyword  = { fg = "#ffb4ab", bold = true, italic = true, underline = true }
 find_position = { fg = "#ffb4ab", bold = true, italic = true }
 
-marker_copied   = { fg = "#201c00", bg = "#efe3a8" }
-marker_cut      = { fg = "#552107", bg = "#ffb597" }
+marker_copied   = { fg = "#001d33", bg = "#cfe5ff" }
+marker_cut      = { fg = "#003733", bg = "#81d5cc" }
 marker_marked   = { fg = "#690005", bg = "#ffb4ab" }
-marker_selected = { fg = "#442a1f", bg = "#e7beae" }
+marker_selected = { fg = "#1c3532", bg = "#b0ccc8" }
 
-count_copied   = { fg = "#201c00", bg = "#efe3a8" }
-count_cut      = { fg = "#552107", bg = "#ffb597" }
-count_selected = { fg = "#442a1f", bg = "#e7beae" }
+count_copied   = { fg = "#001d33", bg = "#cfe5ff" }
+count_cut      = { fg = "#003733", bg = "#81d5cc" }
+count_selected = { fg = "#1c3532", bg = "#b0ccc8" }
 
 border_symbol = "│"
-border_style  = { fg = "#53433e" }
+border_style  = { fg = "#3f4947" }
 
 # : ]]]
 
@@ -36,8 +36,8 @@ padding = { open = "█", close = "█" }
 # : Tabs [[[
 
 [tabs]
-active    = { fg = "#ffb597", bold = true, bg = "#1a110e" }
-inactive  = { fg = "#d8c2ba", bg = "#1a110e" }
+active    = { fg = "#81d5cc", bold = true, bg = "#0e1514" }
+inactive  = { fg = "#bec9c6", bg = "#0e1514" }
 sep_inner = { open = "[", close = "]" }
 
 # : ]]]
@@ -46,14 +46,14 @@ sep_inner = { open = "[", close = "]" }
 # : Mode [[[
 
 [mode]
-normal_main = { bg = "#ffb597", fg = "#552107", bold = true }
-normal_alt  = { bg = "#53433e", fg = "#d8c2ba" }
+normal_main = { bg = "#81d5cc", fg = "#003733", bold = true }
+normal_alt  = { bg = "#3f4947", fg = "#bec9c6" }
 
-select_main = { bg = "#e7beae", fg = "#442a1f", bold = true }
-select_alt  = { bg = "#53433e", fg = "#d8c2ba" }
+select_main = { bg = "#b0ccc8", fg = "#1c3532", bold = true }
+select_alt  = { bg = "#3f4947", fg = "#bec9c6" }
 
-unset_main  = { bg = "#d3c78f", fg = "#373106", bold = true }
-unset_alt   = { bg = "#53433e", fg = "#d8c2ba" }
+unset_main  = { bg = "#afc9e7", fg = "#17324a", bold = true }
+unset_alt   = { bg = "#3f4947", fg = "#bec9c6" }
 
 # : ]]]
 
@@ -64,15 +64,15 @@ unset_alt   = { bg = "#53433e", fg = "#d8c2ba" }
 sep_left  = { open = "", close = "" }
 sep_right = { open = "", close = "" }
 
-perm_type  = { fg = "#e7beae" }
-perm_write = { fg = "#d3c78f" }
-perm_read  = { fg = "#ffb597" }
+perm_type  = { fg = "#b0ccc8" }
+perm_write = { fg = "#afc9e7" }
+perm_read  = { fg = "#81d5cc" }
 perm_exec  = { fg = "#ffb4ab" }
-perm_sep   = { fg = "#ffb597" }
+perm_sep   = { fg = "#81d5cc" }
 
 progress_label  = { bold = true }
-progress_normal = { fg = "#ffb597", bg = "#271e1a" }
-progress_error  = { fg = "#ffb4ab", bg = "#271e1a" }
+progress_normal = { fg = "#81d5cc", bg = "#1a2120" }
+progress_error  = { fg = "#ffb4ab", bg = "#1a2120" }
 
 # : ]]]
 
@@ -81,12 +81,12 @@ progress_error  = { fg = "#ffb4ab", bg = "#271e1a" }
 
 [which]
 cols = 3
-mask = { bg = "#271e1a" }
-cand = { fg = "#ffb597" }
-rest = { fg = "#f1dfd9" }
-desc = { fg = "#d8c2ba" }
+mask = { bg = "#1a2120" }
+cand = { fg = "#81d5cc" }
+rest = { fg = "#dde4e2" }
+desc = { fg = "#bec9c6" }
 separator = " ▶ "
-separator_style = { fg = "#ffb597" }
+separator_style = { fg = "#81d5cc" }
 
 # : ]]]
 
@@ -94,8 +94,8 @@ separator_style = { fg = "#ffb597" }
 # : Notify [[[
 
 [notify]
-title_info  = { fg = "#ffb597" }
-title_warn  = { fg = "#e7beae" }
+title_info  = { fg = "#81d5cc" }
+title_warn  = { fg = "#b0ccc8" }
 title_error = { fg = "#ffb4ab" }
 
 # : ]]]
@@ -104,8 +104,8 @@ title_error = { fg = "#ffb4ab" }
 # : Picker [[[
 
 [pick]
-border = { fg = "#ffb597" }
-active = { fg = "#d3c78f", bold = true }
+border = { fg = "#81d5cc" }
+active = { fg = "#afc9e7", bold = true }
 
 # : ]]]
 
@@ -113,8 +113,8 @@ active = { fg = "#d3c78f", bold = true }
 # : Input [[[
 
 [input]
-border = { fg = "#ffb597" }
-value  = { fg = "#f1dfd9" }
+border = { fg = "#81d5cc" }
+value  = { fg = "#dde4e2" }
 
 # : ]]]
 
@@ -122,7 +122,7 @@ value  = { fg = "#f1dfd9" }
 # : Completion [[[
 
 [cmp]
-border = { fg = "#ffb597", bg = "#271e1a" }
+border = { fg = "#81d5cc", bg = "#1a2120" }
 
 # : ]]]
 
@@ -130,8 +130,8 @@ border = { fg = "#ffb597", bg = "#271e1a" }
 # : Tasks [[[
 
 [tasks]
-border  = { fg = "#ffb597" }
-hovered = { fg = "#d3c78f", underline = true }
+border  = { fg = "#81d5cc" }
+hovered = { fg = "#afc9e7", underline = true }
 
 # : ]]]
 
@@ -139,9 +139,9 @@ hovered = { fg = "#d3c78f", underline = true }
 # : Help [[[
 
 [help]
-on     = { fg = "#f1dfd9" }
-run    = { fg = "#ffb597" }
-footer = { fg = "#442a1f", bg = "#e7beae" }
+on     = { fg = "#dde4e2" }
+run    = { fg = "#81d5cc" }
+footer = { fg = "#1c3532", bg = "#b0ccc8" }
 
 # : ]]]
 
@@ -176,16 +176,16 @@ append_exts = [
 
 [filetype]
 rules = [
-  { mime = "image/*", fg = "#d3c78f" },
-  { mime = "{audio,video}/*", fg = "#e7beae" },
-  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress}", fg = "#ffb597" },
-  { mime = "application/{pdf,doc,docx,rtf}", fg = "#ffb597" },
+  { mime = "image/*", fg = "#afc9e7" },
+  { mime = "{audio,video}/*", fg = "#b0ccc8" },
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress}", fg = "#81d5cc" },
+  { mime = "application/{pdf,doc,docx,rtf}", fg = "#81d5cc" },
 
   { name = "*", is = "orphan", bg = "#93000a" },
-  { name = "*", is = "exec", fg = "#d3c78f" },
+  { name = "*", is = "exec", fg = "#afc9e7" },
 
-  { url = "*",  fg = "#f1dfd9" },
-  { url = "*/", fg = "#ffb597" },
+  { url = "*",  fg = "#dde4e2" },
+  { url = "*/", fg = "#81d5cc" },
 ]
 
 # : ]]]

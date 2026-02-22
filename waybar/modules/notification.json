@@ -1,0 +1,11 @@
+{
+  "custom/notification": {
+    "exec": "sh -c 'timeout 1 /usr/bin/swaync-client -swb || echo \"{\\\"text\\\":\\\"0\\\",\\\"alt\\\":\\\"none\\\",\\\"tooltip\\\":\\\"\\\",\\\"class\\\":\\\"none\\\"}\"'",
+    "return-type": "json",
+    "format": "󰂚 {text}",
+    "on-click": "/usr/bin/swaync-client -t -sw",
+    "on-click-right": "/usr/bin/swaync-client -d -sw",
+    "signal": 8,
+    "tooltip": true
+  }
+}
