@@ -1,175 +1,186 @@
 @import '../../colors.css';
 
-/* === Derived dynamic colors === */
-@define-color base alpha(@surface, 0.8);
-@define-color surface_custom alpha(@surface_container_high, 0.8);
-@define-color hovercolor alpha(@surface_container_high, 0.8);
-@define-color activecolor @primary_container;
+/* =========================
+   Derived dynamic colors
+   ========================= */
+@define-color panel_bg      alpha(@surface, 0.86);
+@define-color panel_inner   alpha(@surface_dim, 0.70);
 
-@define-color buttoncolor alpha(@inverse_primary, 0.3);
-@define-color hoverbutton alpha(@inverse_primary, 0.5);
-@define-color activebutton @inverse_primary;
+@define-color card_bg       alpha(@surface_container_high, 0.97);
+@define-color card_bg_hover alpha(@surface_container_high, 0.98);
 
-@define-color bordercolor @primary;
-@define-color fontcolor @on_surface;
-@define-color text @on_surface;
+@define-color border_soft   alpha(@on_surface, 0.16);
+@define-color border_med    alpha(@on_surface, 0.26);
 
+@define-color accent        alpha(@primary, 0.88);
+@define-color accent_soft   alpha(@primary, 0.35);
+
+@define-color text          @on_surface;
+
+/* =========================
+   Global
+   ========================= */
 * {
   font-size: 1rem;
   font-weight: 900;
   all: unset;
-  font-family: "Fira Sans Semibold", "Font Awesome 7 Free", "Font Awesome 7 Brands",
+  color: @text;
+
+  font-family: "Fira Sans Semibold",
+               "Font Awesome 7 Free", "Font Awesome 7 Brands",
                "Font Awesome 6 Free", "Font Awesome 6 Brands",
                FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-  transition: 200ms;
+
+  transition: 220ms;
 }
 
-.widget-mpris {
-  all: unset;
+.widget-mpris { all: unset; }
+
+/* =========================
+   Remove wrapper shadow
+   ========================= */
+.floating-notifications.background,
+.floating-notifications.background .notification-row,
+.floating-notifications.background .notification-background {
+  box-shadow: none;
+  filter: none;
 }
 
-/* === Notifications === */
-
+/* =========================
+   Floating Notifications
+   ========================= */
 .floating-notifications.background
 .notification-row
 .notification-background
 .notification {
-  background-color: @surface;
+
   border-radius: 12px;
 
   background:
-    radial-gradient(circle at 55% -80%, alpha(@primary, 1), alpha(black, 0.6)) padding-box,
-    linear-gradient(transparent, alpha(white, 0.5)) padding-box;
+    radial-gradient(circle at 50% 250%, @panel_bg, @panel_inner) padding-box,
+    linear-gradient(@accent_soft, alpha(@on_primary, 0.20)) border-box;
 
-  border: 1px solid @on_surface;
-  opacity: 1.0;
+  border: 1px solid transparent;
 
-  margin: 10px;
-  margin-right: 18px;
+  margin: 8px 0 0 0;
+  margin-right: 14px;
 
-  /* FIXED: added px units */
-  box-shadow: 1px 1px 5px 1px @shadow;
+  box-shadow: none;
+
+  /* Inner glow */
+  outline: 1px solid alpha(@primary, 0.18);
+  outline-offset: -1px;
+  box-shadow: inset 0 0 14px alpha(@primary, 0.06);
+
+  /* 🔽 Reduced height */
+  padding: 8px 10px;
 }
 
+/* Hover */
+.floating-notifications.background
+.notification-row
+.notification-background
+.notification:hover {
+
+  background:
+    radial-gradient(circle at 50% 250%, @card_bg_hover, @panel_inner) padding-box,
+    linear-gradient(@accent_soft, alpha(@on_primary, 0.20)) border-box;
+
+  outline: 1px solid alpha(@primary, 0.25);
+  box-shadow: inset 0 0 18px alpha(@primary, 0.08);
+}
+
+/* =========================
+   Critical
+   ========================= */
 .floating-notifications.background
 .notification-row
 .notification-background
 .notification.critical {
-  background-color: @surface;
+
   border-radius: 12px;
 
   background:
-    radial-gradient(circle at 55% -80%, alpha(@primary, 1), alpha(black, 0.6)) padding-box,
-    linear-gradient(transparent, alpha(red, 0.5)) padding-box;
+    radial-gradient(circle at 50% 250%, @panel_bg, @panel_inner) padding-box,
+    linear-gradient(alpha(red, 0.45), alpha(@on_primary, 0.20)) border-box;
 
-  border: 1px solid @on_surface;
-  opacity: 1.0;
-
-  margin: 10px;
-  margin-right: 18px;
-
-  /* FIXED: added px units */
-  box-shadow: 1px 1px 5px 1px @shadow;
-}
-
-/* Content spacing */
-
-.floating-notifications.background
-.notification-row
-.notification-background
-.notification
-.notification-content {
-  margin: 0rem;
-}
-
-.floating-notifications.background
-.notification-row
-.notification-background
-.notification
-> *:last-child
-> * {
-  min-height: 1.5em;
-}
-
-.floating-notifications.background
-.notification-row
-.notification-background
-.notification
-> *:last-child
-> *
-.notification-action {
-  border-radius: 0.5rem;
-  background-color: alpha(@crust, 0.95);
-  margin: 0.4rem;
   border: 1px solid transparent;
+
+  outline: 1px solid alpha(red, 0.35);
+  outline-offset: -1px;
+
+  box-shadow: inset 0 0 12px alpha(@primary, 0.08);
 }
 
-.floating-notifications.background
-.notification-row
-.notification-background
-.notification
-> *:last-child
-> *
-.notification-action:hover {
-  background-color: @hover;
-  border: 1px solid @primary;
-}
-
-.floating-notifications.background
-.notification-row
-.notification-background
-.notification
-> *:last-child
-> *
-.notification-action:active {
-  background-color: @primary;
-  color: @text;
-}
-
+/* =========================
+   Text Styling (Compact)
+   ========================= */
 .summary {
   font-weight: 800;
-  font-size: 1.15rem;
-  padding: 5px 15px;
+  font-size: 1.05rem;
+  padding: 4px 10px 2px 10px;
 }
 
 .body {
-  padding: 5px 15px;
-  font-size: 0.8rem;
+  font-size: 0.80rem;
+  padding: 0px 10px 6px 10px;
 }
 
-.floating-notifications.background
-.notification-row
-.notification-background
+/* =========================
+   Action Buttons (Compact)
+   ========================= */
+.notification-action {
+  border-radius: 8px;
+  padding: 4px 10px;
+  margin: 4px;
+
+  background: alpha(@surface_container, 0.75);
+  border: 1px solid @border_soft;
+}
+
+.notification-action:hover {
+  background: alpha(@surface_container_high, 0.92);
+  border: 1px solid @border_med;
+}
+
+.notification-action:active {
+  background: @primary_container;
+  color: @on_primary_container;
+}
+
+/* =========================
+   Close Button
+   ========================= */
 .close-button {
-  background: transparent;
-  border-radius: 7px;
-  color: @text;
-  background-color: alpha(#fff, 0.5);
-  margin: 0px;
-  padding: 2px;
+  background: alpha(@surface_container, 0.65);
+  border-radius: 999px;
+  padding: 3px;
+  border: 1px solid @border_soft;
 }
 
-.floating-notifications.background
-.notification-row
-.notification-background
 .close-button:hover {
-  background-color: @primary;
-  border-radius: 12px;
+  background: @primary_container;
+  border: 1px solid @accent;
 }
 
-.floating-notifications.background
-.notification-row
-.notification-background
 .close-button:active {
-  background-color: @primary;
-  color: @text;
+  background: @primary;
+  color: @on_primary;
 }
 
-.notification.critical progress {
-  background-color: @primary;
+/* =========================
+   Progress Bar
+   ========================= */
+.notification progress,
+.notification trough highlight {
+  background-color: @accent;
+  border-radius: 999px;
 }
 
-.notification.low progress,
-.notification.normal progress {
-  background-color: @primary;
+/* =========================
+   Notification Window Position
+   ========================= */
+.floating-notifications {
+  margin-top: 5px;   /* adjust this value */
+  margin-right: 6px; 
 }

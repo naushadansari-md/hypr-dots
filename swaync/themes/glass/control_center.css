@@ -1,59 +1,71 @@
 @import '../../colors.css';
 
-/* === Derived dynamic colors === */
-@define-color base alpha(@surface, 0.5);
-@define-color surface_custom alpha(@surface_container_high,1);
-@define-color hovercolor alpha(@surface_container_high,1);
-@define-color activecolor @primary_container;
+/* =========================
+   Derived dynamic colors
+   ========================= */
+@define-color panel_bg          alpha(@surface, 0.86);
+@define-color panel_inner       alpha(@surface_dim, 0.70);
 
-@define-color buttoncolor alpha(@inverse_primary,0.5);
-@define-color hoverbutton alpha(@inverse_primary,0.7);
-@define-color activebutton @inverse_primary;
+@define-color card_bg           alpha(@surface_container_high, 0.97);
+@define-color card_bg_hover     alpha(@surface_container_high, 0.98);
 
-@define-color bordercolor @primary;
-@define-color fontcolor @on_surface;
-@define-color text @on_surface;
+@define-color btn_bg            alpha(@surface_container, 0.78);
+@define-color btn_bg_hover      alpha(@surface_container_high, 0.95);
+@define-color btn_bg_active     @primary_container;
 
-/* === Global === */
+@define-color btn_fg            @on_surface;
+@define-color btn_fg_active     @on_primary_container;
+
+@define-color border_soft       alpha(@on_surface, 0.16);
+@define-color border_med        alpha(@on_surface, 0.26);
+
+@define-color accent            alpha(@primary, 0.88);
+@define-color accent_soft       alpha(@primary, 0.35);
+
+@define-color text              @on_surface;
+
+/* =========================
+   Global
+   ========================= */
 * {
   color: @text;
   font-size: 1rem;
-  font-weight: 900;
-  font-family: "Fira Sans Semibold",
-               "Font Awesome 7 Free",
-               "Font Awesome 7 Brands",
-               "Font Awesome 6 Free",
-               "Font Awesome 6 Brands",
-               FontAwesome;
-  transition: 250ms;
+  font-weight: 650;
+
+  font-family: "Fira Sans Semibold", "JetBrainsMono Nerd Font", "Font Awesome 7 Free";
+  
+  transition: 220ms;
 }
 
 #window {
   padding: 40px;
 }
 
-/* === Control Center === */
+/* =========================
+   Control Center
+   ========================= */
 .control-center {
-  background-color: @surface;
   border-radius: 12px;
+
   background:
-    radial-gradient(circle at 50% 250%, @surface, @surface_dim) padding-box,
-    linear-gradient(@primary, @on_primary) border-box;
-     
+    radial-gradient(circle at 50% 250%, @panel_bg, @panel_inner) padding-box,
+    linear-gradient(@accent_soft, alpha(@on_primary, 0.20)) border-box;
+
   border: 1px solid transparent;
-  opacity: 0.8;
+  opacity: 1.0;
+
   margin: 10px;
   margin-right: 18px;
 
-/* One clean shadow only */
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.20);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
 
-  /* Small edge highlight so blur doesn’t look dirty */
   outline: 1px solid alpha(white, 0.06);
   outline-offset: -1px;
 }
 
-/* === Buttons Grid === */
+/* =========================
+   Buttons Grid
+   ========================= */
 .widget-buttons-grid {
   margin: 6px;
 }
@@ -61,195 +73,327 @@
 .widget-buttons-grid button {
   margin: 7px;
   padding: 1rem 1.9rem;
-  background: @buttoncolor;
-  color: @on_primary_fixed;
+
+  background: @btn_bg;
+  color: @btn_fg;
+
   border-radius: 15px;
-  border: 2px solid @bordercolor;
-  font-size: 5em;
+  border: 1px solid @border_soft;
+
+  font-size: 4em;
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
 
 .widget-buttons-grid button:hover {
-  background: @hoverbutton;
-  color: @text;
-  border-radius: 15px;
+  background: @btn_bg_hover;
+  color: @btn_fg;
+  border: 1px solid @border_med;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.14);
 }
 
 .widget-buttons-grid button.toggle:checked {
-  background: @activebutton;
-  color: @on_primary;
-  border-radius: 15px;
+  background: @btn_bg_active;
+  color: @btn_fg_active;
+
+  border: 1px solid @accent;
+  box-shadow: 0 0 10px alpha(@primary, 0.22);
 }
 
 .widget-buttons-grid label {
   font-size: 19px;
+  font-weight: 700;
 }
 
 .widget-buttons-grid button:hover label,
 .widget-buttons-grid button:checked label {
-  transform: scale(0.8);
+  transform: scale(0.92);
 }
 
-/* === Volume & Brightness === */
+/* =========================
+   Volume & Brightness (polished)
+   ========================= */
 .widget-volume,
 .widget-backlight {
   padding: 12px 16px;
   margin: 7px 12px 20px 12px;
-  border-radius: 8px;
-  background: @surface_custom;
+
+  border-radius: 10px;
+  background: @card_bg;
+
+  border: 1px solid @border_soft;
+  outline: 1px solid alpha(white, 0.04);
+  outline-offset: -1px;
 }
 
+/* Track: dark capsule */
 .widget-backlight trough,
 .widget-volume trough {
-  background: @surface_container_low;
-  margin: 8px;
-  border: none;
+  background: alpha(@surface_container_low, 0.42);
+  border: 1px solid alpha(@on_surface, 0.14);
+  border-radius: 999px;
+
+  min-height: 14px;
+  padding: 4px;
+  margin: 10px 6px;
 }
 
+/* Fill: thin copper line */
 .widget-backlight trough highlight,
 .widget-volume trough highlight {
-  background: @primary;
-  border: 2px solid @primary;
-  border-radius: 5px;
+  background: alpha(@primary, 0.90);
+  border-radius: 999px;
+
+  min-height: 6px;
+
+  box-shadow: 0 0 8px alpha(@primary, 0.28);
 }
 
-/* === MPRIS === */
+/* Handle: appears only on interaction */
+.widget-backlight slider,
+.widget-volume slider {
+  background: alpha(@primary_container, 0.95);
+  border: 1px solid alpha(@primary, 0.65);
+  border-radius: 999px;
+
+  min-width: 14px;
+  min-height: 14px;
+
+  opacity: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: 120ms;
+}
+
+.widget-backlight:hover slider,
+.widget-volume:hover slider,
+.widget-backlight slider:active,
+.widget-volume slider:active,
+.widget-backlight slider:focus,
+.widget-volume slider:focus {
+  opacity: 1;
+}
+
+/* Slightly stronger glow when interacting */
+.widget-backlight:hover trough highlight,
+.widget-volume:hover trough highlight {
+  box-shadow: 0 0 10px alpha(@primary, 0.35);
+}
+
+/* =========================
+   MPRIS
+   ========================= */
 .widget-mpris {
-  border-radius: 10px;
+  border-radius: 12px;
   margin: 2px 12px 12px 12px;
-  color: alpha(#000000, 0.8);
 }
 
 .widget-mpris button {
-  background: @surface_custom;
+  background: @card_bg;
   border-radius: 20px;
-  padding: 4px;
-  margin: 20px 2px;
+  padding: 6px;
+  margin: 16px 2px;
+
+  border: 1px solid @border_soft;
 }
 
 .widget-mpris button:hover {
-  background: @hovercolor;
+  background: @card_bg_hover;
+  border: 1px solid @border_med;
 }
 
 .widget-mpris-player {
-  border-radius: 10px;
-  color: alpha(#000000, 0.8);
+  border-radius: 12px;
 }
 
 .widget-mpris-album-art {
-  border-radius: 1000px;
+  border-radius: 999px;
   margin: 8px 0 0 8px;
 }
 
 .widget-mpris-title {
-  font-weight: 900;
-  font-size: 2em;
+  font-weight: 850;
+  font-size: 1.6em;
   margin: 10px 20px 0 0;
-  color: alpha(white, 0.9);
-  background-color: alpha(black, 0.6);
+
+  color: alpha(white, 0.92);
+  background-color: alpha(black, 0.55);
+  padding: 4px 10px;
+  border-radius: 10px;
 }
 
 .widget-mpris-subtitle {
-  font-weight: 900;
-  font-size: 0.8rem;
+  font-weight: 750;
+  font-size: 0.95rem;
   margin: 0px 20px 5px 0px;
-  color: alpha(white, 0.9);
-  background-color: alpha(black, 0.6);
+
+  color: alpha(white, 0.90);
+  background-color: alpha(black, 0.45);
+  padding: 3px 10px;
+  border-radius: 10px;
 }
 
-/* === Title === */
+/* =========================
+   Title
+   ========================= */
 .widget-title {
-  font-size: 1.5rem;
+  font-size: 1.35rem;
+  font-weight: 850;
   margin: 0 12px 5px 12px;
 }
 
+/* "Clear" button usually uses this styling */
 .widget-title button {
-  background: @surface_custom;
-  border-radius: 8px;
-  padding: 4px 16px;
+  background: alpha(@surface_container, 0.75);
+  border-radius: 999px;
+  padding: 6px 16px;
+  border: 1px solid @border_soft;
 }
 
 .widget-title button:hover {
-  background: alpha(@primary,0.3);
-  border-radius: 15px;
+  background: alpha(@surface_container_high, 0.92);
+  border: 1px solid @border_med;
 }
 
-/* === DND === */
+/* =========================
+   Do Not Disturb
+   ========================= */
 .widget-dnd {
   margin: 15px 15px 5px 12px;
 }
 
 .widget-dnd > switch {
-  background: @hovercolor;
-  border-radius: 5px;
+  background: alpha(@surface_container, 0.75);
+  border-radius: 999px;
+  border: 1px solid @border_soft;
 }
 
 .widget-dnd > switch:hover {
-  background: @buttoncolor;
+  background: alpha(@surface_container_high, 0.92);
+  border: 1px solid @border_med;
 }
 
 .widget-dnd > switch:checked {
-  background: @buttoncolor;
+  background: alpha(@primary_container, 0.85);
+  border: 1px solid @accent_soft;
 }
 
 .widget-dnd > switch slider {
-  background: @bordercolor;
-  border-radius: 5px;
-  border: 2px solid @buttoncolor;
+  background: alpha(@primary_container, 0.95);
+  border-radius: 999px;
+  border: 1px solid alpha(@primary, 0.35);
 }
 
 .widget-dnd > switch:checked slider {
-  background: @inverse_primary;
+  background: @primary;
 }
 
-/* === Notifications === */
+/* =========================
+   Notifications
+   ========================= */
 .notification {
-  background-color: @surface;
+  background: @card_bg;
   border-radius: 12px;
-  background:
-    radial-gradient(circle at 50% 250%, @primary, @surface) padding-box,
-    linear-gradient(@primary, @on_primary) border-box;
-  border: 1px solid transparent;
+  
+  border: 1px solid @border_soft;
+  border-left: 3px solid @accent;
+
   opacity: 1.0;
   padding: 10px;
+  padding-left: 12px;
   margin: 10px 0 0 0;
 
-  box-shadow: 1px 1px 5px 1px @shadow;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+  outline: 1px solid alpha(white, 0.04);
+  outline-offset: -1px;
+}
+
+.notification:hover {
+  background: @card_bg_hover;
+  border: 1px solid @border_med;
+  border-left: 3px solid @accent;
 }
 
 .notification.critical {
-  border: 2px solid red;
+  border-left: 3px solid #ff4d4d;
+  border: 1px solid alpha(#ff4d4d, 0.40);
 }
 
-.close-button {
-  background-color: alpha(@hoverbutton,0.5);
-  border-radius: 8px;
-  padding: 3px;
-}
-
-.close-button:hover {
-  border-radius: 12px;
-}
-
-/* === Progress === */
-trough highlight {
-  background: @primary;
-  border: 2px solid @primary_fixed;
-  border-radius: 20px;
-}
-
-/* === Groups === */
+/* =========================
+   Groups
+   ========================= */
 .notification-group {
   margin: 4px 12px;
 }
 
 .notification-group-collapse-button,
 .notification-group-close-all-button {
-  background: @surface_container;
-  border-radius: 5px;
-  padding: 5px;
+  background: alpha(@surface_container, 0.85);
+  border-radius: 8px;
+  padding: 6px;
+  border: 1px solid @border_soft;
 }
 
 .notification-group-collapse-button:hover,
 .notification-group-close-all-button:hover {
-  background: @hovercolor;
+  background: alpha(@surface_container_high, 0.98);
+  border: 1px solid @border_med;
+}
+
+/* =========================================================
+   swaync 0.12.4 - Empty state (No Notifications) IMPLEMENTED
+   Put at END so it overrides everything
+   ========================================================= */
+
+/* Text */
+.control-center .notification-list .placeholder,
+.control-center .notification-list .placeholder label,
+.control-center .notification-list .empty,
+.control-center .notification-list .empty label,
+.control-center .notification-list #placeholder,
+.control-center .notification-list #placeholder label,
+.control-center .notification-list .notification-empty,
+.control-center .notification-list .notification-empty label,
+.control-center .placeholder,
+.control-center .placeholder label,
+.control-center .empty,
+.control-center .empty label,
+.control-center .notification-empty,
+.control-center .notification-empty label,
+.control-center #notification-list .placeholder,
+.control-center #notification-list .placeholder label,
+.control-center #notifications .placeholder,
+.control-center #notifications .placeholder label {
+  color: alpha(@on_surface, 0.72);
+}
+
+/* Icon */
+.control-center .notification-list .placeholder image,
+.control-center .notification-list .empty image,
+.control-center .notification-list #placeholder image,
+.control-center .notification-list .notification-empty image,
+.control-center .placeholder image,
+.control-center .empty image,
+.control-center .notification-empty image,
+.control-center #notification-list .placeholder image,
+.control-center #notifications .placeholder image {
+  color: alpha(@primary, 0.55);
+  -gtk-icon-shadow: 0 0 10px alpha(@primary, 0.18);
+}
+
+/* If icon is NOT an image node in your build, force copper on children too */
+.control-center .notification-list .placeholder *,
+.control-center .notification-list .empty *,
+.control-center .placeholder *,
+.control-center .empty * {
+  color: alpha(@primary, 0.55);
+}
+
+/* Optional spacing for empty state */
+.control-center .notification-list .placeholder,
+.control-center .notification-list .empty,
+.control-center .placeholder,
+.control-center .empty {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 14px;
 }
