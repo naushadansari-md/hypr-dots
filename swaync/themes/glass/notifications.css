@@ -25,12 +25,7 @@
   font-weight: 900;
   all: unset;
   color: @text;
-
-  font-family: "Fira Sans Semibold",
-               "Font Awesome 7 Free", "Font Awesome 7 Brands",
-               "Font Awesome 6 Free", "Font Awesome 6 Brands",
-               FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-
+  font-family: "Fira Sans Semibold", "JetBrainsMono Nerd Font", "Font Awesome 7 Free";
   transition: 220ms;
 }
 
