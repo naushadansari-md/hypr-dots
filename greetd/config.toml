@@ -1,0 +1,8 @@
+# /etc/greetd/config.toml
+
+[terminal]
+vt = "next"
+
+[default_session]
+command = "tuigreet --greeting 'Welcome to Arch • Hyprland' --greet-align center --time --time-format '%a %d %b %Y  %I:%M %p' --remember --remember-session --user-menu --asterisks --power-reboot 'systemctl reboot' --power-shutdown 'systemctl poweroff' --kb-power 12 --cmd /usr/bin/start-hyprland"
+user = "greeter"

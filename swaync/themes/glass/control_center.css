@@ -111,7 +111,7 @@
 }
 
 /* =========================
-   Volume & Brightness (polished)
+   Volume & Brightness
    ========================= */
 .widget-volume,
 .widget-backlight {
@@ -293,15 +293,11 @@
 .notification {
   background: @card_bg;
   border-radius: 12px;
-  
   border: 1px solid @border_soft;
-  border-left: 3px solid @accent;
-
   opacity: 1.0;
   padding: 10px;
   padding-left: 12px;
   margin: 10px 0 0 0;
-
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
   outline: 1px solid alpha(white, 0.04);
   outline-offset: -1px;

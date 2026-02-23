@@ -4,7 +4,7 @@ set -euo pipefail
 notification_timeout=1000
 
 # Steps
-b_step="10%"
+b_step="5%"
 v_step="5%"
 v_limit="150"   # set 100 for hard cap
 
