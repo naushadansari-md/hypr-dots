@@ -57,7 +57,6 @@ echo "WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-<empty>}"
 # ----------------------------
 need find
 need tee
-need cp
 
 # shuf + flock are expected on Arch; if missing, warn (don’t hard fail)
 have shuf  || warn "shuf missing (coreutils). Random wallpaper may fail."
@@ -75,7 +74,9 @@ BLUR="20x10"
 # Dock paths
 DOCK_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nwg-dock-hyprland"
 DOCK_COLORS="$DOCK_DIR/colors.css"
-DOCK_SCRIPT="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/start-dock.sh"
+
+# Dock restart script (your path)
+DOCK_SCRIPT="$HOME/.config/hypr/scripts/start-dock.sh"
 
 echo "CACHE       = $CACHE"
 echo "WALLPAPERS  = $WALLPAPERS_DIR"
@@ -100,11 +101,13 @@ echo "OK: placeholder rasi created"
 pick_random_wallpaper() {
   [[ -d "$WALLPAPERS_DIR" ]] || return 1
 
+  # Prefer GNU shuf -z (Arch). Fallback if -z not supported.
   if have shuf; then
     find "$WALLPAPERS_DIR" -type f \
       \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \
       -print0 | shuf -z -n 1 | tr -d '\0'
   else
+    # fallback: first match
     find "$WALLPAPERS_DIR" -type f \
       \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) \
       | head -n1
@@ -124,6 +127,7 @@ echo "Wallpaper: $wallpaper"
 # swww (Set Wallpaper)
 # ----------------------------
 if have swww; then
+  # Ensure daemon is running
   if ! swww query >/dev/null 2>&1; then
     pkill -x swww-daemon 2>/dev/null || true
     pkill -x swww 2>/dev/null || true
@@ -131,6 +135,7 @@ if have swww; then
     sleep 0.25
   fi
 
+  # Try set wallpaper
   if ! swww img "$wallpaper" >/dev/null 2>&1; then
     warn "swww img failed, retrying after daemon restart..."
     pkill -x swww-daemon 2>/dev/null || true
@@ -157,6 +162,7 @@ fi
 # ----------------------------
 MATUGEN_COLORS=""
 
+# Common locations first
 for p in \
   "$HOME/.config/matugen/colors.css" \
   "$HOME/.cache/matugen/colors.css" \
@@ -169,6 +175,7 @@ do
   fi
 done
 
+# Fallback: search (limited depth for speed)
 if [[ -z "$MATUGEN_COLORS" ]]; then
   MATUGEN_COLORS="$(
     find "${XDG_CONFIG_HOME:-$HOME/.config}" "${XDG_CACHE_HOME:-$HOME/.cache}" \
@@ -180,7 +187,7 @@ fi
 echo "MATUGEN_COLORS=${MATUGEN_COLORS:-<not found>}"
 
 # ----------------------------
-# Sync colors to dock config
+# Sync colors to dock config (RELIABLE)
 # ----------------------------
 mkdir -p "$DOCK_DIR" || true
 
@@ -192,29 +199,26 @@ else
 fi
 
 # ----------------------------
-# Dock (Reload)
-# - restart only if dock is running
-# - use -f because process name > 15 chars (pgrep -x won't match)
+# Dock (Restart via start-dock.sh)
 # ----------------------------
-if pgrep -f '^nwg-dock-hyprland' >/dev/null 2>&1; then
-  echo "Dock: running -> restart to apply new colors"
-  pkill -f '^nwg-dock-hyprland' 2>/dev/null || true
-  sleep 0.15
-  if [[ -x "$DOCK_SCRIPT" ]]; then
-    "$DOCK_SCRIPT" >/dev/null 2>&1 || warn "Dock restart script failed"
-    echo "OK: dock restarted"
-  else
-    warn "Dock script not found/executable: $DOCK_SCRIPT"
-  fi
+if [[ -x "$DOCK_SCRIPT" ]]; then
+  # Kill any running instance of this script (path match)
+  pkill -f "$DOCK_SCRIPT" 2>/dev/null || true
+  sleep 0.1
+  nohup "$DOCK_SCRIPT" >/dev/null 2>&1 &
+  echo "OK: dock restarted using $DOCK_SCRIPT"
 else
-  echo "Dock: not running -> skip restart"
+  warn "start-dock.sh missing or not executable: $DOCK_SCRIPT"
 fi
 
 # ----------------------------
 # Waybar (Reload)
 # ----------------------------
 if have waybar; then
+  # Preferred soft reload if supported
   pkill -SIGUSR2 waybar 2>/dev/null || true
+
+  # If not running, start it
   if ! pgrep -x waybar >/dev/null 2>&1; then
     waybar >/dev/null 2>&1 &
     echo "OK: waybar started"

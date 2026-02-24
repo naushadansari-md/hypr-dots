@@ -36,7 +36,7 @@ image_quality = 85
 [opener]
 
 edit = [
-  { run = "${EDITOR:-nvim} \"%s\"", desc = "Neovim", for = "linux", block = true },
+  { run = "${EDITOR:-vim} \"%s\"", desc = "Vim", for = "linux", block = true },
 ]
 
 pdf = [

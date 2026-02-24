@@ -146,3 +146,10 @@ zle -N down-line-or-beginning-search
 bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 eval "$(zoxide init zsh)"
+
+
+
+alias ds='pkill -f dock-smart.sh; sleep 0.3; ~/.config/hypr/scripts/dock-smart.sh &'
+
+alias sd='pkill -f dock-smart.sh; sleep 0.3; ~/.config/hypr/scripts/start-dock.sh &'
+
