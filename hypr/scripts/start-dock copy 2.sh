@@ -27,7 +27,7 @@ fi
 STYLE_PATH="themes/${DOCK_THEME}/style.css"
 [[ -f "$DOCK_DIR/$STYLE_PATH" ]] || STYLE_PATH="style.css"
 
-LAUNCHER_CMD="$HOME/.config/hypr/scripts/dock-launcher-exec.sh nwg-drawer -ovl -c 7"
+LAUNCHER_CMD="$HOME/.config/hypr/scripts/dock-launcher-exec.sh"
 
 cd "$DOCK_DIR"
 

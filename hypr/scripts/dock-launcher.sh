@@ -1,31 +1,56 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
 
-LOG_DIR="$HOME/.cache/nwg-dock-hyprland"
+# =========================
+# Logging
+# =========================
+LOG_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/nwg-dock-hyprland"
 mkdir -p "$LOG_DIR"
-LOG="$LOG_DIR/launcher.log"
+LOG_FILE="$LOG_DIR/launcher.log"
 
-# log everything from dock click
-exec >>"$LOG" 2>&1
-echo "---- $(date '+%F %T') dock launcher click ----"
+{
+  echo "---- $(date '+%F %T') ----"
+  echo "dock-launcher.sh started"
+  echo "WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-<empty>}"
+  echo "XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-<empty>}"
+} >> "$LOG_FILE"
 
-# import env when launched from dock
-systemctl --user import-environment \
-  WAYLAND_DISPLAY XDG_RUNTIME_DIR HYPRLAND_INSTANCE_SIGNATURE PATH DBUS_SESSION_BUS_ADDRESS 2>/dev/null || true
+# =========================
+# Ensure PATH (important for Hyprland/Waybar launches)
+# =========================
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+echo "PATH=$PATH" >> "$LOG_FILE"
 
-dbus-update-activation-environment --systemd \
-  WAYLAND_DISPLAY XDG_RUNTIME_DIR HYPRLAND_INSTANCE_SIGNATURE PATH DBUS_SESSION_BUS_ADDRESS 2>/dev/null || true
-
-export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
-
-# Your rofi launcher script (recommended)
-ROFI_SCRIPT="$HOME/.config/hypr/scripts/rofi-launcher.sh"
-
-if [[ -x "$ROFI_SCRIPT" ]]; then
-  echo "Running: $ROFI_SCRIPT"
-  "$ROFI_SCRIPT"
-else
-  echo "rofi-launcher.sh missing/not executable -> running rofi drun"
-  command -v rofi >/dev/null 2>&1 || { echo "ERROR: rofi not found"; exit 2; }
-  rofi -show drun
+# =========================
+# Find nwg-drawer
+# =========================
+DRAWER_BIN="$(command -v nwg-drawer || true)"
+if [[ -z "${DRAWER_BIN:-}" ]]; then
+  echo "ERROR: nwg-drawer not found in PATH" >> "$LOG_FILE"
+  exit 2
 fi
+
+# =========================
+# Kill old instance so margins update
+# =========================
+pkill -x nwg-drawer 2>/dev/null && exit 0
+
+# =========================
+# Mac-style preset with space under Waybar
+# Tune these values as you like
+# =========================
+ARGS=(
+  -ovl
+  -a bottom
+  -c 7
+  -is 72
+  -spacing 18
+  -mt 240
+  -mb 120
+  -ml 300
+  -mr 300
+)
+
+echo "Launching: $DRAWER_BIN ${ARGS[*]}" >> "$LOG_FILE"
+
+exec "$DRAWER_BIN" "${ARGS[@]}"
