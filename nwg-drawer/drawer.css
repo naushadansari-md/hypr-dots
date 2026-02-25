@@ -1,0 +1,114 @@
+/* ---- nwg-drawer: ultra soft Material (Matugen) ---- */
+
+/* Core */
+@define-color bg        #0f1416;
+@define-color fg        #dee3e5;
+@define-color muted     #bfc8cb;
+@define-color accent    #85d2e7;
+@define-color outline   #899295;
+
+@define-color surface       #1b2022;
+@define-color surface_dim   #171c1e;
+@define-color primary       #85d2e7;
+@define-color on_primary    #003640;
+
+/* ===================== */
+/* Window */
+/* ===================== */
+window {
+  background-color: @bg;
+  color: @fg;
+}
+
+/* ===================== */
+/* Search Entry (Very Soft) */
+/* ===================== */
+entry {
+  background:
+    radial-gradient(circle at 50% 250%,
+      alpha(shade(@surface, 0.95), 0.96),
+      alpha(@surface_dim, 0.96)
+    ) padding-box,
+    linear-gradient(alpha(@primary, 0.25), alpha(@on_primary, 0.25)) border-box;
+
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: 8px 16px;
+  color: @fg;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.30);
+  outline: none;
+}
+
+entry:focus {
+  border-color: alpha(@accent, 0.30);
+  box-shadow:
+    0 0 0 1.5px alpha(@accent, 0.10),
+    0 4px 14px rgba(0, 0, 0, 0.35);
+  outline: none;
+}
+
+/* ===================== */
+/* Remove icon tile boxes */
+/* ===================== */
+button,
+image {
+  background: none;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+/* ===================== */
+/* Soft hover highlight */
+/* ===================== */
+button:hover {
+  background-color: alpha(@fg, 0.06);
+  border-radius: 16px;
+}
+
+/* Selected / keyboard navigation */
+button:focus,
+button:active,
+button:checked {
+  background-color: alpha(@accent, 0.15);
+  border-radius: 16px;
+}
+
+/* ===================== */
+/* Category buttons */
+/* ===================== */
+#category-button {
+  margin: 0 10px;
+}
+
+#category-button:checked {
+  background-color: alpha(@accent, 0.18);
+  border-radius: 16px;
+}
+
+/* ===================== */
+/* Sections */
+/* ===================== */
+#pinned-box {
+  padding-bottom: 5px;
+  border-bottom: 1px dotted alpha(@outline, 0.55);
+}
+
+#files-box {
+  padding: 5px;
+  border: 1px dotted alpha(@outline, 0.55);
+  border-radius: 15px;
+}
+
+/* ===================== */
+/* Labels */
+/* ===================== */
+label { color: @fg; }
+.description { color: @muted; }
+
+#math-label {
+  font-weight: bold;
+  font-size: 16px;
+  color: @fg;
+}
