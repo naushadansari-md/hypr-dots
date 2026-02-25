@@ -1,10 +1,11 @@
 {
   "$schema": "/etc/xdg/swaync/configSchema.json",
-"positionX": "center",
-"positionY": "bottom",
 
-"control-center-positionX": "right",
-"control-center-positionY": "top",
+  "positionX": "center",
+  "positionY": "bottom",
+
+  "control-center-positionX": "right",
+  "control-center-positionY": "top",
 
   "layer": "overlay",
   "cssPriority": "user",
@@ -58,23 +59,29 @@
     "dnd": {
       "text": "Do not Disturb"
     },
+
     "title": {
       "text": "Notifications",
       "clear-all-button": true,
       "button-text": "Clear"
     },
+
     "mpris": {
       "image-size": 0,
       "image-radius": 0
     },
+
     "backlight": {
       "label": "󰃟 "
     },
+
     "volume": {
       "label": " "
     },
+
     "buttons-grid": {
       "actions": [
+
         {
           "label": "",
           "type": "toggle",
@@ -82,13 +89,15 @@
           "command": "bash -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio wifi on || nmcli radio wifi off'",
           "update-command": "bash -c '[[ $(nmcli r wifi) == \"enabled\" ]] && echo true || echo false'"
         },
+
         {
-          "label": "",
-          "type": "toggle",
-          "active": true,
-          "command": "bash -c 'if [[ $SWAYNC_TOGGLE_STATE == true ]]; then rfkill unblock bluetooth; bluetoothctl power on >/dev/null 2>&1; else bluetoothctl power off >/dev/null 2>&1; rfkill block bluetooth; fi'",
-          "update-command": "bash -c 'rfkill list bluetooth | grep -q \"Soft blocked: no\" && echo true || echo false'"
+        "label": "",
+        "type": "toggle",
+        "active": true,
+        "command": "/home/saad/.config/swaync/scripts/bt-toggle.sh",
+        "update-command": "/home/saad/.config/swaync/scripts/bt-state.sh"
         },
+
         {
           "label": "󰕾",
           "type": "toggle",
@@ -96,10 +105,12 @@
           "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
           "update-command": "bash -c 'pactl get-sink-mute @DEFAULT_SINK@ | grep -q yes && echo false || echo true'"
         },
+
         {
           "label": "",
           "command": "hyprlock"
         }
+
       ]
     }
   }
