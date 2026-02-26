@@ -9,10 +9,9 @@
 
   min-height: 22px;
   padding: 4px 12px;
-  margin: 0 4px;
+  margin: 0 6px;
   border-radius: 10px;
   transition: 150ms ease;
-
   background: radial-gradient(circle at 50% 250%,
             alpha(shade(@surface, 0.85), 0.90),
             alpha(@surface_dim, 0.90)) padding-box,

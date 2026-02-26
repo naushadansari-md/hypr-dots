@@ -3,14 +3,14 @@
 --------------------------------*/
 @import "/home/saad/.config/waybar/colors.css";
 @import "/home/saad/.config/waybar/style/clock.css";
-@import "/home/saad/.config/waybar/style/hardware.css";
+@import "/home/saad/.config/waybar/style/window.css";
 @import "/home/saad/.config/waybar/style/launcher.css";
 @import "/home/saad/.config/waybar/style/pulseaudio.css";
 @import "/home/saad/.config/waybar/style/network.css";
 @import "/home/saad/.config/waybar/style/workspaces.css";
 @import "/home/saad/.config/waybar/style/power.css";
 @import "/home/saad/.config/waybar/style/custom-battery.css";
-@import "/home/saad/.config/waybar/style/backlight.css";
+@import "/home/saad/.config/waybar/style/desktop.css";
 @import "/home/saad/.config/waybar/style/notification.css";
 
 /* ------------------------------
@@ -71,11 +71,13 @@ window#waybar {
 #battery,
 #network,
 #pulseaudio,
+#window,
+#desktop,
 #custom-launcher,
 #custom-notification{
   min-height: 18px;
   padding: 2px 10px;
-  margin: 0 4px;
+  margin: 0 6px;
   border-radius: 10px;
   transition: 150ms ease;
 
@@ -95,6 +97,7 @@ window#waybar {
    HOVER (Premium Glass Effect)
 --------------------------------*/
 #clock:hover,
+#window:hover,
 #cpu:hover,
 #memory:hover,
 #temperature:hover,

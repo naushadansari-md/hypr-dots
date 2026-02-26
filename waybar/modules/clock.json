@@ -2,12 +2,12 @@
   "custom/clock": {
     "tooltip": false,
     "interval": 1,
-    "exec": "echo \" 󰥔  $(date | awk '{print $4}')\"",
+    "exec": "echo \" 󰥔 $(date | awk '{print $4}')\"",
     "tooltip-format": "Time",
   },
   "clock": {
     "format": "󰥔 {:%I:%M %p}",
-    "format-alt": " {:%b %d   󰥔  %I:%M %p}",
+    "format-alt": " {:%b %d   󰥔 %I:%M %p}",
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {
       "mode"          : "year",

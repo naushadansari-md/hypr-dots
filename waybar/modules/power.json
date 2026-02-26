@@ -9,9 +9,7 @@
     "modules": [
       "custom/power",
       "custom/lock",
-      "custom/space",
-      "custom/exit",
-      "custom/space",
+      "custom/exit", 
       "custom/reboot"
     ]
   },

@@ -1,0 +1,42 @@
+{
+  "hyprland/window": {
+    "format": "{class}",
+    "separate-outputs": true,
+    "rewrite": {
+      "^firefox$": "  Firefox",
+      "^google-chrome$": "  Chrome",
+      "^chromium$": "  Chromium",
+      "^brave-browser$": "  Brave",
+
+      "^code$": "󰨞  VS Code",
+      "^VSCodium$": "󰨞  VSCodium",
+      "^subl$": "  Sublime",
+      "^jetbrains-idea$": "  IntelliJ",
+
+      "^kitty$": "  Terminal",
+      "^Alacritty$": "  Terminal",
+      "^foot$": "  Terminal",
+      "^wezterm$": "  Terminal",
+      "^FloatTerm$": "  Terminal",
+
+      "^thunar$": "  Files",
+      "^nemo$": "  Files",
+      "^dolphin$": "  Files",
+      "^nautilus$": "  Files",
+
+      "^discord$": "  Discord",
+      "^telegram-desktop$": "  Telegram",
+      "^Slack$": "󰒱  Slack",
+      "^zoom$": "  Zoom",
+
+      "^Spotify$": "  Spotify",
+      "^vlc$": "󰕼  VLC",
+      "^mpv$": "󰐹  MPV",
+
+      "^org.pulseaudio.pavucontrol$": "󰕾  Audio",
+      "^blueman-manager$": "  Bluetooth",
+      "^nm-connection-editor$": "󰖩  Network",
+      "^org\\.gnome\\.Settings$": "󰒓  Settings"
+    }
+  }
+}

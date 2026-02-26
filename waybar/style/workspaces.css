@@ -5,6 +5,7 @@
 /* ===== Container ===== */
 #workspaces {
   padding: 5px 8px 5px 8px;
+  margin: 0 6px;
   border-radius: 10px;
   background: radial-gradient(circle at 50% 250%,
             alpha(shade(@surface, 0.85), 0.9),
