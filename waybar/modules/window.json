@@ -31,7 +31,7 @@
       "^nautilus$": "  Files",
 
       "^discord$": "  Discord",
-      "^telegram-desktop$": "  Telegram",
+      "^org.telegram.desktop$": "  Telegram",
       "^Slack$": "󰒱  Slack",
       "^zoom$": "  Zoom",
 
