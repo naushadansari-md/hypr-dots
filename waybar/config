@@ -11,24 +11,23 @@
     "modules-left": [
       "custom/launcher",
       "custom/space",
-      "group/hardware"
+      "hyprland/workspaces"
      
     ],
 
     "modules-center": [
-      "hyprland/workspaces"
+      "clock"
     ],
 
     "modules-right": [
-      "clock",
-      "custom/space",
-      "custom/notification",
+       "custom/notification",
       "custom/space",
       "pulseaudio",
       "custom/space",
       "network",
       "custom/space",
       "custom/battery",
+      "custom/space",
       "custom/space",
       "group/power"
     ],
