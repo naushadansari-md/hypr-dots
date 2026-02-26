@@ -8,9 +8,15 @@
       "^chromium$": "  Chromium",
       "^brave-browser$": "  Brave",
 
+      "^org\\.mozilla\\.Thunderbird$": "  Thunderbird",
+
+      "^Enpass$": "  Enpass",
+
       "^code$": "󰨞  VS Code",
       "^VSCodium$": "󰨞  VSCodium",
       "^subl$": "  Sublime",
+      "^geany$": "  Geany",
+      "^org\\.pwmt\\.zathura$": " Zathura",
       "^jetbrains-idea$": "  IntelliJ",
 
       "^kitty$": "  Terminal",
@@ -36,7 +42,7 @@
       "^org.pulseaudio.pavucontrol$": "󰕾  Audio",
       "^blueman-manager$": "  Bluetooth",
       "^nm-connection-editor$": "󰖩  Network",
-      "^org\\.gnome\\.Settings$": "󰒓  Settings"
+      "^nwg-look$": "󰒓  Settings"
     }
   }
 }
