@@ -1,0 +1,31 @@
+/* ------------------------------
+   TRAY INTERNAL
+--------------------------------*/
+
+#tray > .item {
+  padding: 0 6px;
+  margin: 0 3px;
+  border-radius: 8px;
+  transition: 150ms ease;
+}
+
+/* Hover - softer + premium */
+#tray > .item:hover {
+  background: alpha(@surface_container_high, 0.75);
+  box-shadow:
+    0 0 8px alpha(@primary, 0.22),
+    inset 1px 1px 2px alpha(@on_surface, 0.12);
+}
+
+/* Passive icons */
+#tray > .passive {
+  opacity: 0.5;
+}
+
+/* Needs attention */
+#tray > .needs-attention {
+  background: alpha(@error_container, 0.85);
+  border: 1px solid alpha(@error, 0.4);
+  box-shadow: 0 0 6px alpha(@error, 0.25);
+  border-radius: 8px;
+}

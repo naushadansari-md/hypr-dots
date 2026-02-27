@@ -21,6 +21,7 @@
     ],
 
     "modules-right": [
+      "tray",
       "custom/notification",
       "pulseaudio",
       "network",
@@ -37,9 +38,10 @@
       "/home/saad/.config/waybar/modules/network.json",
       "/home/saad/.config/waybar/modules/workspaces.json",
       "/home/saad/.config/waybar/modules/power.json",
+      "/home/saad/.config/waybar/modules/tray.json",
       "/home/saad/.config/waybar/modules/notification.json",
       "/home/saad/.config/waybar/modules/window.json",
-       "/home/saad/.config/waybar/modules/desktop.json"
+      "/home/saad/.config/waybar/modules/desktop.json"
       
     ]
   }

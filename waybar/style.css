@@ -9,6 +9,7 @@
 @import "/home/saad/.config/waybar/style/network.css";
 @import "/home/saad/.config/waybar/style/workspaces.css";
 @import "/home/saad/.config/waybar/style/power.css";
+@import "/home/saad/.config/waybar/style/tray.css";
 @import "/home/saad/.config/waybar/style/custom-battery.css";
 @import "/home/saad/.config/waybar/style/desktop.css";
 @import "/home/saad/.config/waybar/style/notification.css";
@@ -71,6 +72,7 @@ window#waybar {
 #network,
 #pulseaudio,
 #window,
+#tray,
 #desktop,
 #custom-launcher,
 #custom-notification{
