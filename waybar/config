@@ -4,7 +4,7 @@
     "output": ["DP-1", "DP-2", "eDP-1"],
     "position": "top",
 
-    "margin-top": 5,
+    "margin-top": 10,
     "margin-left": 10,
     "margin-right": 10,
     "margin-bottom": 0,
