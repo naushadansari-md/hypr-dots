@@ -54,12 +54,11 @@
 /* ===== Active Workspace ===== */
 #workspaces button.active {
   background: alpha(@primary, 0.2);
-  border: 1px solid transparent;
+  border: 1px solid alpha(@primary, 0.6);
   transition: all 0.3s ease-in-out;
-  min-width: 30px;
+  min-width: 22px;
   border-radius: 8px;
-  box-shadow: inset 1px 2px 2px rgba(255, 255, 255, 0.5),
-              inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 /* ===== Urgent Workspace ===== */
@@ -71,4 +70,10 @@
   border-radius: 8px;
   box-shadow:
     0 0 14px alpha(@error, 0.35);
+}
+
+/* Center the icon visually */
+#workspaces button label {
+  margin-left: 0px;
+  margin-right: 3px;
 }

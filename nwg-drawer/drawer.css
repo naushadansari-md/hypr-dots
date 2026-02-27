@@ -1,16 +1,16 @@
 /* ---- nwg-drawer: ultra soft Material (Matugen) ---- */
 
 /* Core */
-@define-color bg        #0f1416;
-@define-color fg        #dee3e5;
-@define-color muted     #bfc8cb;
-@define-color accent    #85d2e7;
-@define-color outline   #899295;
+@define-color bg        #1a120e;
+@define-color fg        #f0dfd8;
+@define-color muted     #d7c2b9;
+@define-color accent    #ffb691;
+@define-color outline   #a08d84;
 
-@define-color surface       #1b2022;
-@define-color surface_dim   #171c1e;
-@define-color primary       #85d2e7;
-@define-color on_primary    #003640;
+@define-color surface       #271e19;
+@define-color surface_dim   #221a15;
+@define-color primary       #ffb691;
+@define-color on_primary    #542202;
 
 /* ===================== */
 /* Window */
