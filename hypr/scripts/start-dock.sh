@@ -9,13 +9,13 @@ DOCK_THEME="glass"
 ICON_SIZE="40"
 WIDTH="5"
 MB="10"
-EXTRA_FLAGS=(-x)
+EXTRA_FLAGS=()
 
 # Disabled?
 [[ -f "$DISABLED_FILE" ]] && exit 0
 
-# Already running?
-pgrep -f '^nwg-dock-hyprland' >/dev/null && exit 0
+# Already running? (fine — just exit)
+pgrep -f '^nwg-dock-hyprland(\s|$)' >/dev/null && exit 0
 
 # Theme
 if [[ -f "$THEME_FILE" ]]; then
@@ -31,7 +31,9 @@ LAUNCHER_CMD="$HOME/.config/hypr/scripts/dock-launcher-exec.sh nwg-drawer -ovl -
 
 cd "$DOCK_DIR"
 
+# IMPORTANT: -r (resident) so we can show/hide via signals
 nwg-dock-hyprland \
+  -r \
   -i "$ICON_SIZE" \
   -w "$WIDTH" \
   -mb "$MB" \
@@ -39,3 +41,7 @@ nwg-dock-hyprland \
   -s "$STYLE_PATH" \
   -c "$LAUNCHER_CMD" \
   >/dev/null 2>&1 &
+
+# Start hidden (controller will show it on hover/rules)
+sleep 0.15
+pkill -RTMIN+3 -f '^nwg-dock-hyprland(\s|$)' 2>/dev/null || true

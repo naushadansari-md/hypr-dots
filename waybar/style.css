@@ -89,7 +89,7 @@ window#waybar {
 
   border: 1px solid transparent;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-
+  opacity:0.85;
 }
 
 

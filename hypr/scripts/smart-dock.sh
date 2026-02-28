@@ -1,31 +1,28 @@
 #!/usr/bin/env bash
-set -uo pipefail
+set -euo pipefail
 
 DOCK_MATCH='nwg-dock-hyprland'
-DOCK_CLASS='nwg-dock-hyprland'
 START_SCRIPT="$HOME/.config/hypr/scripts/start-dock.sh"
 
 # ---------- Tuning (macOS feel) ----------
-SHOW_DELAY_MS="${SHOW_DELAY_MS:-180}"     # cursor must stay in bottom zone before showing
-REVEAL_HOLD_MS="${REVEAL_HOLD_MS:-450}"   # keep visible after leaving zone
-HIDE_DELAY_MS="${HIDE_DELAY_MS:-250}"     # delay before hiding
-
+SHOW_DELAY_MS="${SHOW_DELAY_MS:-180}"
+REVEAL_HOLD_MS="${REVEAL_HOLD_MS:-1600}"
+HIDE_DELAY_MS="${HIDE_DELAY_MS:-700}"
 BOTTOM_ZONE_PX="${BOTTOM_ZONE_PX:-32}"
 
-# Responsiveness vs CPU
-POLL_SEC="${POLL_SEC:-0.20}"              # cursor poll interval
-STATE_REFRESH_MS="${STATE_REFRESH_MS:-600}"  # refresh window/fullscreen state
-MON_REFRESH_MS="${MON_REFRESH_MS:-1000}"     # refresh monitor geometry
+POLL_SEC="${POLL_SEC:-0.25}"            # cursor poll only
+WS_REFRESH_MS="${WS_REFRESH_MS:-1200}"  # workspace state safety refresh
+MON_REFRESH_MS="${MON_REFRESH_MS:-5000}"
 # ----------------------------------------
 
-# Process name is >15 chars, so DO NOT use -x
-is_running() { pgrep -f '^nwg-dock-hyprland(\s|$)' >/dev/null 2>&1; }
-kill_dock()  { pkill -f '^nwg-dock-hyprland(\s|$)' 2>/dev/null || true; }
+is_running() { pgrep -f "^${DOCK_MATCH}(\s|$)" >/dev/null 2>&1; }
 
-# Direct start (no login shell needed)
-start_dock() { "$START_SCRIPT" >/dev/null 2>&1 || true; }
+# nwg-dock-hyprland signals
+dock_show() { pkill -RTMIN+2 -f "^${DOCK_MATCH}(\s|$)" 2>/dev/null || true; }
+dock_hide() { pkill -RTMIN+3 -f "^${DOCK_MATCH}(\s|$)" 2>/dev/null || true; }
 
-# Cheap wall-clock ms (guarded against time going backwards)
+start_resident() { "$START_SCRIPT" >/dev/null 2>&1 || true; }
+
 now_ms() {
   if [[ -n "${EPOCHREALTIME:-}" ]]; then
     local s="${EPOCHREALTIME/./}"
@@ -35,52 +32,132 @@ now_ms() {
   fi
 }
 
-# reveal state
+# ---------- Hyprland event socket ----------
+HYPR_SIG="${HYPRLAND_INSTANCE_SIGNATURE:-}"
+SOCK="${XDG_RUNTIME_DIR:-/run/user/$UID}/hypr/${HYPR_SIG}/.socket2.sock"
+
+have_events=0
+if [[ -n "$HYPR_SIG" && -S "$SOCK" ]] && command -v socat >/dev/null 2>&1; then
+  have_events=1
+fi
+
+if (( have_events == 1 )); then
+  coproc HYPR_EVENTS { socat -u "UNIX-CONNECT:$SOCK" - 2>/dev/null; }
+fi
+
+# ---------- State ----------
 zone_enter_ms=0
 reveal_until_ms=0
 hide_deadline_ms=0
 last_t=0
 
-# cached monitor geometry
 mon_x=0 mon_y=0 mon_w=0 mon_h=0
 mon_right=0 mon_bottom=0 zone_top=0
 next_mon_refresh_ms=0
+mon_dirty=1
 
-# cached window/fullscreen state
 ws_hasfullscreen=false
-total_count=0
-tiled_count=0
-next_state_refresh_ms=0
+ws_windows=0
+next_ws_refresh_ms=0
+ws_dirty=1
 
+dock_visible=0
+
+# ---------- Functions ----------
+refresh_monitors() {
+  local monitors_json
+  monitors_json="$(hyprctl monitors -j 2>/dev/null || echo '[]')"
+
+  read -r mon_x mon_y mon_w mon_h <<<"$(
+    jq -r 'first(.[] | select(.focused==true) | "\(.x) \(.y) \(.width) \(.height)") // "0 0 0 0"' \
+      <<<"$monitors_json" 2>/dev/null
+  )"
+
+  mon_x="${mon_x:-0}"; mon_y="${mon_y:-0}"
+  mon_w="${mon_w:-0}"; mon_h="${mon_h:-0}"
+
+  if (( mon_w > 0 && mon_h > 0 )); then
+    mon_right=$((mon_x + mon_w - 1))
+    mon_bottom=$((mon_y + mon_h - 1))
+    zone_top=$((mon_bottom - BOTTOM_ZONE_PX))
+  else
+    mon_right=0; mon_bottom=0; zone_top=0
+  fi
+}
+
+refresh_workspace_state() {
+  local wsid workspaces_json
+
+  wsid="$(hyprctl activeworkspace -j 2>/dev/null | jq -r '.id' 2>/dev/null || echo 0)"
+  workspaces_json="$(hyprctl workspaces -j 2>/dev/null || echo '[]')"
+
+  # Reliable fullscreen detection
+  ws_hasfullscreen="$(
+    hyprctl activewindow -j 2>/dev/null \
+      | jq -r '((.fullscreen // false) == true) or ((.fullscreenMode // 0) != 0)' \
+      2>/dev/null || echo false
+  )"
+
+  # Workspace window count (cheap)
+  ws_windows="$(
+    jq --argjson wsid "$wsid" -r '(.[] | select(.id == $wsid) | (.windows // 0)) // 0' \
+      <<<"$workspaces_json" 2>/dev/null || echo 0
+  )"
+  ws_windows="${ws_windows:-0}"
+}
+
+mark_dirty_from_event() {
+  local ev="$1"
+  case "$ev" in
+    workspace*|activewindow*|activewindowv2*|openwindow*|closewindow*|movewindow*|fullscreen* )
+      ws_dirty=1
+      ;;
+    focusedmon*|monitoradded*|monitorremoved*|monitor* )
+      mon_dirty=1
+      ws_dirty=1
+      ;;
+  esac
+}
+
+# ---------- Startup ----------
+if ! is_running; then
+  start_resident
+fi
+
+t="$(now_ms)"
+next_mon_refresh_ms=$t
+next_ws_refresh_ms=$t
+
+# ---------- Main Loop ----------
 while true; do
   t="$(now_ms)"
   (( t < last_t )) && t=$last_t
   last_t=$t
 
-  # ---------------- Monitor Refresh ----------------
-  if (( t >= next_mon_refresh_ms || mon_w <= 0 || mon_h <= 0 )); then
-    monitors_json="$(hyprctl monitors -j 2>/dev/null || echo '[]')"
-
-    read -r mon_x mon_y mon_w mon_h <<<"$(
-      jq -r 'first(.[] | select(.focused==true) | "\(.x) \(.y) \(.width) \(.height)") // "0 0 0 0"' \
-        <<<"$monitors_json" 2>/dev/null
-    )"
-
-    mon_x="${mon_x:-0}"; mon_y="${mon_y:-0}"
-    mon_w="${mon_w:-0}"; mon_h="${mon_h:-0}"
-
-    if (( mon_w > 0 && mon_h > 0 )); then
-      mon_right=$((mon_x + mon_w - 1))
-      mon_bottom=$((mon_y + mon_h - 1))
-      zone_top=$((mon_bottom - BOTTOM_ZONE_PX))
-    else
-      mon_right=0; mon_bottom=0; zone_top=0
+  # Event-driven idle
+  if (( have_events == 1 )); then
+    if IFS= read -r -t "$POLL_SEC" -u "${HYPR_EVENTS[0]}" evline; then
+      mark_dirty_from_event "$evline"
+      continue
     fi
+  else
+    sleep "$POLL_SEC"
+  fi
 
+  # Ensure dock still running
+  if ! is_running; then
+    start_resident
+    dock_visible=0
+  fi
+
+  # Monitor refresh
+  if (( mon_dirty == 1 || t >= next_mon_refresh_ms || mon_w <= 0 || mon_h <= 0 )); then
+    refresh_monitors
+    mon_dirty=0
     next_mon_refresh_ms=$((t + MON_REFRESH_MS))
   fi
 
-  # ---------------- Cursor ----------------
+  # Cursor poll
   cursor_raw="$(hyprctl cursorpos 2>/dev/null || echo "0,0")"
   cursor_raw="${cursor_raw// /}"
   IFS=, read -r cx cy <<<"$cursor_raw"
@@ -93,7 +170,7 @@ while true; do
     fi
   fi
 
-  # ---------------- Reveal Logic ----------------
+  # Reveal timing
   if (( zone_hit == 1 )); then
     (( zone_enter_ms == 0 )) && zone_enter_ms=$t
     (( t - zone_enter_ms >= SHOW_DELAY_MS )) && reveal_until_ms=$((t + REVEAL_HOLD_MS))
@@ -104,60 +181,39 @@ while true; do
   revealed=0
   (( reveal_until_ms > t )) && revealed=1
 
-  # ---------------- Window State Refresh ----------------
-  if (( revealed == 0 && t >= next_state_refresh_ms )); then
-    wsid="$(hyprctl activeworkspace -j 2>/dev/null | jq -r '.id' 2>/dev/null || echo 0)"
-    clients_json="$(hyprctl clients -j 2>/dev/null || echo '[]')"
-    workspaces_json="$(hyprctl workspaces -j 2>/dev/null || echo '[]')"
-
-    ws_hasfullscreen="$(
-      jq --argjson wsid "$wsid" -r '(.[] | select(.id == $wsid) | .hasfullscreen) // false' \
-        <<<"$workspaces_json" 2>/dev/null || echo false
-    )"
-
-    read -r total_count tiled_count <<<"$(
-      jq --argjson wsid "$wsid" --arg dock "$DOCK_CLASS" -r '
-        def isdock:
-          ((.class // "") == $dock) or ((.initialClass // "") == $dock);
-        [ .[]
-          | select(.workspace.id == $wsid)
-          | select(isdock | not)
-        ] as $w
-        | ($w | length) as $total
-        | ($w | map(select((.floating // false) == false)) | length) as $tiled
-        | "\($total) \($tiled)"
-      ' <<<"$clients_json" 2>/dev/null || echo "0 0"
-    )"
-
-    total_count="${total_count:-0}"
-    tiled_count="${tiled_count:-0}"
-    next_state_refresh_ms=$((t + STATE_REFRESH_MS))
+  # Workspace refresh
+  if (( ws_dirty == 1 || t >= next_ws_refresh_ms )); then
+    refresh_workspace_state
+    ws_dirty=0
+    next_ws_refresh_ms=$((t + WS_REFRESH_MS))
   fi
 
-  # ---------------- Final Rules ----------------
+  # ---------- Rules ----------
   if (( revealed == 1 )); then
     desired="show"
   elif [[ "$ws_hasfullscreen" == "true" ]]; then
     desired="hide"
-  elif (( total_count == 0 )); then
-    desired="show"
-  elif (( total_count > 0 && tiled_count == 0 )); then
+  elif (( ws_windows == 0 )); then
     desired="show"
   else
     desired="hide"
   fi
 
-  # ---------------- Apply ----------------
+  # ---------- Apply ----------
   if [[ "$desired" == "show" ]]; then
     hide_deadline_ms=0
-    ! is_running && start_dock
+    if (( dock_visible == 0 )); then
+      dock_show
+      dock_visible=1
+    fi
   else
     (( hide_deadline_ms == 0 )) && hide_deadline_ms=$((t + HIDE_DELAY_MS))
     if (( t >= hide_deadline_ms )); then
       hide_deadline_ms=0
-      is_running && kill_dock
+      if (( dock_visible == 1 )); then
+        dock_hide
+        dock_visible=0
+      fi
     fi
   fi
-
-  sleep "$POLL_SEC"
-done
+done        
